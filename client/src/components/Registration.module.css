@@ -1,0 +1,73 @@
+body{
+    /* background-color: #09060b; */
+    background: radial-gradient(#1b1b2c, #000);
+    color: #fff;
+}
+.login_container {
+    display: flex;
+    margin: 5% auto;
+    width: 30%;
+}
+
+.jinx_login {
+    height: 600px;
+    margin-left: -120%;
+    opacity: 0.85;
+}
+
+.register {
+    /* background-color: #090311; */
+    /* background-color: #131120; */
+    /* background: radial-gradient(#131120;, #000); */
+    /* filter: blur(8px);
+    -webkit-filter: blur(8px); */
+    padding: 0 5%;
+}
+
+.reg_header {
+    font-size: 16pt;
+    margin-bottom: 10%;;
+    margin-top: 5%;
+}
+
+span {
+    color: grey;
+}
+
+form {
+    width: 350px;
+}
+
+input[type="text"], input[type="password"] {
+    margin: 5px 0 20px 0;
+    width: 100%;
+    color: #eee;
+    background-color: #3a3160;
+    padding: 5px 7px;
+    border: none;
+    border-radius: 3px;
+}
+
+.checkbox {
+    display: flex;
+    margin: 15px 0;
+    /* align-items: center; */
+}
+
+input[type="checkbox"] {
+    margin: 5px 10px 0 0;
+}
+
+.reg_btn {
+    color: #eee;
+    border: none;
+    background-color: #8d52ff;
+    padding: 2% 3%;
+    width: 100%;
+    margin-top: 5%;
+}
+
+.reg_btn:hover {
+    background-color: #6e3ad3;
+    border-color: #6e3ad3;
+}
