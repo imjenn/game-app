@@ -32,33 +32,34 @@ const Login = () => {
     const [errorState, setErrorState] = useState({});
 
     const registerSubmit = (e) => {
-        console.log(newUser, "********")
-        e.preventDefault();
-        axios.post("http://localhost:8000/signup", newUser, { withCredentials: true })
-            .then(res => console.log(res))
-            .catch(err => {
-                console.log(err.response);
-                console.log(err.response.data)
-                const { errors } = err.response.data;
-                console.log(errors);
-                const errObj = {}
+        if (password !== confirmPassword || password.length === 0) {
+            alert("Passwords don't match");
+        } else {
+            console.log(newUser, "********")
+            e.preventDefault();
+            axios.post("http://localhost:8000/signup", newUser, { withCredentials: true })
+                .then(res => {
+                    localStorage.setItem("isAuthenticated", "true");
+                    history.push('/profile');
+                    window.location.reload();   
+                })
+                .catch(err => {
+                    console.log(err.response);
+                    console.log(err.response.data)
+                    const { errors } = err.response.data;
+                    console.log(errors);
+                    const errObj = {}
 
-                console.log(Object.entries(errors))
-                for (const [key, value] of Object.entries(errors)) {
-                    console.log(errors[key])
-                    errObj[key] = value;
-                }
-                setErrorState(errObj);
-                console.log(errObj);
-            })
+                    console.log(Object.entries(errors))
+                    for (const [key, value] of Object.entries(errors)) {
+                        console.log(errors[key])
+                        errObj[key] = value;
+                    }
+                    setErrorState(errObj);
+                    console.log(errObj);
+                })
+        }
     }
-
-    // const registerChangeHandler = (e) => {
-    //     setRegisterState({
-    //         ...registerState,
-    //         [e.target.username]: e.target.value
-    //     })
-    // }
 
     return (
         <div className={styles.login_container}>

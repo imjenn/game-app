@@ -15,16 +15,19 @@ const Login = () => {
 
     const [errorState, setErrorState] = useState({})
 
-    //Modified: will redirect the user to homepage after successful login 
+    //Modified: will redirect the user to homepage after successful login
     const loginSubmit = (e) => {
         e.preventDefault();
         axios.post("http://localhost:8000/login", loginState, { withCredentials: true })
             .then(res => {
-                if (res.status == 200) {
-                    history.push('/'); //Will redirect the user after login is successful
+                if (res.status === 200) {
+                    console.log(res.data)
+                    localStorage.setItem("isAuthenticated", "true");
+                    history.push('/profile', {id: res.data}); //Will redirect the user after login is successful
                     console.log('Login Successful');
+                    window.location.reload();
                 } else {
-                    //Will redirect the user after login is successful 
+                    //Will redirect the user after login is successful
                     // history.push('/logout'); //Will redirect the user after login is successful
                     console.log(res.status);
                 }
@@ -51,7 +54,7 @@ const Login = () => {
                     </div>
                     <div>
                         <label>Password: </label>
-                        <input type="password" name="password" onChange={loginChangeHandler} />
+                        <input type="password" name="password" onChange={loginChangeHandler}/>
                     </div>
                     <input type="submit" value="Log in" />
                     <p>Don't have an account? <a href="/register">Sign Up</a></p>
