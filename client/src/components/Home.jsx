@@ -1,22 +1,14 @@
 import React, {useEffect} from 'react';
-import CarouselComponent from "./CarouselComponent";
 import { useLocation } from "react-router-dom";
 
 
 const Home = () => {
-    const location = useLocation();
-
-    useEffect(() => {
-        console.log(location.state); // result: 'some_value'
-    }, [location]);
-
-
 
     return (
         <div>
+            <img src="https://thumbs.gfycat.com/AlertThatIberianmidwifetoad-size_restricted.gif" alt="" width="60%"/>
             <center>
                 <br/><br/><br/>
-                <CarouselComponent/>
                 <br/><br/><br/><p>Something</p>
                 <br/><br/><br/><p>Something</p>
                 <br/><br/><br/><p>Something</p>

@@ -1,7 +1,10 @@
-body{
+body {
     /* background-color: #09060b; */
-    background: radial-gradient(#1b1b2c, #000);
+    /* background: radial-gradient(#1b1b2c, #000); */
+    background-color: #181818;
     color: #fff;
+    margin: 0;
+    padding: 0;
 }
 .login_container {
     display: flex;
@@ -10,7 +13,7 @@ body{
 }
 
 .jinx_login {
-    height: 600px;
+    height: 650px;
     margin-left: -120%;
     opacity: 0.85;
 }
@@ -46,6 +49,13 @@ input[type="text"], input[type="password"] {
     padding: 5px 7px;
     border: none;
     border-radius: 3px;
+}
+
+i {
+    cursor: pointer;
+    position: absolute;
+    margin-left: -25px;
+    margin-top: 15px;
 }
 
 .checkbox {

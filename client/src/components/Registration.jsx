@@ -22,13 +22,6 @@ const Login = () => {
         confirmPassword
     }
 
-    // const [registerState, setRegisterState] = useState({
-    //     username: "",
-    //     email: "",
-    //     password: "",
-    //     confirmPassword: ""
-    // });
-
     const [errorState, setErrorState] = useState({});
 
     const registerSubmit = (e) => {
@@ -61,11 +54,20 @@ const Login = () => {
         }
     }
 
+    const showPassword = () => {
+        let x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+
     return (
         <div className={styles.login_container}>
             <img className={styles.jinx_login} src={jinx} alt="Cutout of Jinx" />
             <div className={styles.register}>
-                <h1 className={styles.reg_header}>REGISTRATION <i className="fa fa-gamepad" aria-hidden="true"></i></h1>
+                <h1 className={styles.reg_header}>REGISTRATION</h1>
                 <form onSubmit={registerSubmit}>
                     <div>
                         <label>Username </label><br />
@@ -79,14 +81,14 @@ const Login = () => {
                     </div>
                     <div>
                         <label>Password </label><br />
-                        <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                        <input type="password" name="password" id="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
                         {(errorState.password) ? <small>Invalid Password</small> : null}
-                        {/* <i className="fa fa-eye" aria-hidden="true"></i> */}
+                        <i onClick={showPassword} className="fa fa-eye" aria-hidden="true"></i>
                     </div>
                     <div>
                         <label>Confirm Password </label><br />
                         <input type="password" name="confirmPassword" onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm your password" />
-                        {/* <i className="fa fa-eye" aria-hidden="true"></i> */}
+                        <i onClick={showPassword} className="fa fa-eye" aria-hidden="true"></i> 
                         {(errorState.confirmPassword) ? <small>Invalid Password</small> : null}
                     </div>
                     <div className={styles.checkbox}>

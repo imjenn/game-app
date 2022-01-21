@@ -1,0 +1,13 @@
+.privacy_policy_container {
+    width: 50%;
+    margin: 5% auto;
+    color: darkgrey;
+}
+
+.privacy_policy_header{
+    text-align: center;
+}
+
+.privacy_policy_body {
+    margin: 5% 0;
+}

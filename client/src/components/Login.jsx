@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import styles from './Login.module.css';
+import styles from './Registration.module.css';
 import jinx from './images/jinx-cropped.png';
 
 
@@ -43,20 +43,20 @@ const Login = () => {
     }
 
     return (
-        <div>
-            <div>
-                <img className={styles.jinx_login} src={jinx} alt="" />
-                <h1>Login <i className="fa fa-gamepad" aria-hidden="true"></i></h1>
+        <div className={styles.login_container}>
+            <img className={styles.jinx_login} src={jinx} alt="Cutout of Jinx" />
+            <div className={styles.register}>
+                <h1 className={styles.reg_header}>LOGIN</h1>
                 <form onSubmit={loginSubmit}>
                     <div>
                         <label>Email: </label>
-                        <input type="text" name="email" onChange={loginChangeHandler} />
+                        <input type="text" name="email" onChange={loginChangeHandler} placeholder="Email"/>
                     </div>
                     <div>
                         <label>Password: </label>
-                        <input type="password" name="password" onChange={loginChangeHandler}/>
+                        <input type="password" name="password" onChange={loginChangeHandler} placeholder="Password"/>
                     </div>
-                    <input type="submit" value="Log in" />
+                    <input className={styles.reg_btn} type="submit" value="LOG IN" />
                     <p>Don't have an account? <a href="/register">Sign Up</a></p>
                 </form>
             </div>
