@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    padding: 5% 10%;
+    padding: 5% 10% 10%;
 }
 
 .show_game_image {

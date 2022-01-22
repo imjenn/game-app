@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import logo from './images/logo.png'
+import logo from '../images/logo.png'
 import styles from './Navbar.module.css';
 import axios from "axios";
 import {useEffect} from "react";

@@ -1,4 +1,4 @@
-const {Game} = require('../models/game.model');
+const { Game } = require('../models/game.model');
 
 // GAMES METHODS
 module.exports = {

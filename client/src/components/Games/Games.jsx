@@ -62,10 +62,10 @@ const Games = (props) => {
                 <div className={styles.display_games}>
                     {foundGames ? foundGames.map((games, idx) => {
                         return (
-                            <Link to={`/games/${games._id}`}>
+                            <Link className={styles.game} to={`/games/${games._id}`}>
                                 <div className={styles.game_card} key={idx}>
                                     <img className={'img-fluid shadow-4'} src={games.image} alt="" height="350px" width="300px" />
-                                    <h6>{games.title}</h6>
+                                    <h2 className={styles.game_title}>{games.title}</h2>
                                 </div>
                             </Link>
                         )

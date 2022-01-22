@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import styles from './Registration.module.css';
 import 'font-awesome/css/font-awesome.min.css';
 
-import jinx from './images/jinx-cropped.png';
+import jinx from '../images/jinx-cropped.png';
 
 const Login = () => {
 

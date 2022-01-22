@@ -20,6 +20,8 @@ require('./config/mongoose.config')(db);
 // Routes
 require('./routes/game.routes')(app);
 require('./routes/user.routes')(app);
+require('./routes/forum.routes')(app);
+require('./routes/post.routes')(app);
 
 const io = new Server(server, {
     cors: {

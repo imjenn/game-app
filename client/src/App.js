@@ -1,17 +1,18 @@
-import './index.css';
+import './App.css';
 import React from 'react';
-import Home from './components/Home';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Registration from './components/Registration';
-import Login from './components/Login';
-import Games from './components/Games';
-import ShowGame from './components/ShowGame';
+import Home from './components/HomePage/Home';
+import Navbar from './components/Navbar/Navbar';
+import Footer from './components/Footer/Footer';
+import Registration from './components/Forms/Registration';
+import Login from './components/Forms/Login';
+import Games from './components/Games/Games';
+import ShowGame from './components/Games/ShowGame';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Profile from "./components/Profile";
+import Profile from "./components/UserProfile/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Chat from "./components/Chat";
-import PrivacyPolicy from './components/PrivacyPolicy';
+import Chat from "./components/Chat/Chat";
+import Forum from "./components/Forums/Forum";
+import PrivacyPolicy from './components/Footer/PrivacyPolicy';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             </Route>
             <Route exact path="/games/:id">
               <ShowGame />
+              <Footer />
             </Route>
             <Route exact path="/privacy">
               <PrivacyPolicy />
@@ -42,7 +44,14 @@ function App() {
             </Route>
             <ProtectedRoute exact path={"/profile"} component={Profile}/>
             {/* <ProtectedRoute exact path={"/outpage"} component={OutPage}/> */}
-            <ProtectedRoute exact path={"/chat"} component={Chat}/>
+            <ProtectedRoute exact path={"/chat"}>
+              <Chat />
+              <Footer />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/forum/:id">
+              <Forum />
+              <Footer />
+            </ProtectedRoute>
           </Switch>
         </BrowserRouter>
       </div>

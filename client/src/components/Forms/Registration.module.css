@@ -8,8 +8,9 @@ body {
 }
 .login_container {
     display: flex;
-    margin: 5% auto;
+    margin: 5% auto 0 auto;
     width: 30%;
+    height: 100vh;
 }
 
 .jinx_login {
