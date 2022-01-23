@@ -11,8 +11,12 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: [true, "{PATH} is required"]
     },
+    username: {
+        type: String,
+        required: [true, "{PATH} is required"]
+    },
     user: [ {type: mongoose.Schema.ObjectId, ref : 'User'} ],
-    forum: [ {type: mongoose.Schema.ObjectId, ref : "Forum"} ]
+    // forum: [ {type: mongoose.Schema.ObjectId, ref : "Forum"} ]
 }, {timestamps: true})
 
 module.exports.Post = mongoose.model("Post", PostSchema);

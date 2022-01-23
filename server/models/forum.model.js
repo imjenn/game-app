@@ -7,10 +7,8 @@ const ForumSchema = new mongoose.Schema({
         type: String,
         required: [true, "{PATH} is required"]
     },
-    game: {
-        type: mongoose.Schema.ObjectId, ref : "Game",
-               
-    } 
+    game: { type: mongoose.Schema.ObjectId, ref : "Game"},
+    post: [ { type: mongoose.Schema.ObjectId, ref : "Post"} ]
 }, {timestamps: true})
 
 module.exports.Forum = mongoose.model("Forum", ForumSchema);

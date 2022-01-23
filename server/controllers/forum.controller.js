@@ -1,4 +1,6 @@
 const { Forum } = require('../models/forum.model');
+const { Game } = require('../models/game.model');
+const { Post } = require('../models/post.model');
 
 module.exports = {
 
@@ -19,15 +21,33 @@ module.exports = {
     // Read one 
     findOne: (req, res) => {
         console.log(req.params.id)
-        Forum.findOne({game:  req.params.id})
+        const promise1 = Forum.findOne({game:  req.params.id})
             .then( forum => {
                 if (forum === null) {
                     res.status(400).json({msg: "not found"});
                 } else {
-                    //console.log(user.messageHistory)
-                    res.json(forum);
+                    return forum;
                 }
+            }) 
+
+        const promise2 = Game.findById(req.params.id) 
+            .then(game => {
+                // res.json(game)
+                return game;
             })
+            .catch(err => res.json(err))
+
+        const promise3 = Post.find({forum: req.params.id})
+            .then(post => {
+                // res.json(game)
+                return post;
+            })
+            .catch(err => res.json(err))
+                
+        Promise.all([promise1, promise2, promise3]).then(values => {
+            console.log(values)
+            res.json(values)   
+        })
     },
 
     // Update

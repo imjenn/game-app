@@ -23,7 +23,8 @@ const UserSchema = new mongoose.Schema({
     },
     isOnline: {
         type: Boolean
-    }
+    },
+    post: [ { type: mongoose.Schema.ObjectId, ref : "Post"} ]
 
 }, {timestamps: true});
 
