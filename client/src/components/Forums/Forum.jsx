@@ -47,7 +47,7 @@ const Forum = (props) => {
             <div className={styles.forum_body}>
                 <form className={styles.forum_create_post} action="">
                     <p>User pfp</p>
-                    <Link to="/games"><input className={styles.forum_create_post_input}type="text" placeholder="Create Post" /></Link>
+                    <Link to="/post/new"><input className={styles.forum_create_post_input}type="text" placeholder="Create Post" /></Link>
                 </form>
                 {/* {JSON.stringify(posts)} */}
                 {loaded ? posts.sort((a, b) => b.createdAt.localeCompare(a.createdAt)).map((p, idx) => {

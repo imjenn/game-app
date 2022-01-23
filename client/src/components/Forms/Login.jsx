@@ -21,11 +21,13 @@ const Login = () => {
         axios.post("http://localhost:8000/login", loginState, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
-                    console.log(res.data)
+                    // e.preventDefault();
+                    console.log(res)
                     localStorage.setItem("isAuthenticated", "true");
+                    localStorage.setItem("User", res.data);
                     history.push('/profile', {id: res.data}); //Will redirect the user after login is successful
                     console.log('Login Successful');
-                    window.location.reload();
+                    // window.location.reload();
                 } else {
                     //Will redirect the user after login is successful
                     // history.push('/logout'); //Will redirect the user after login is successful

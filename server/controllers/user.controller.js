@@ -49,7 +49,7 @@ module.exports = {
                                 const newJWT = jwt.sign({
                                     _id: user._id
                                 }, process.env.SECRET_KEY)
-                                res.cookie("usertoken", newJWT, { httpOnly: true }).json("Success")
+                                res.cookie("usertoken", newJWT, { httpOnly: true }).json(user)
                             } else {
                                 res.status(400).json({ msg: "Invalid attempt" })
                             }

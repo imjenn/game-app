@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Chat from "./components/Chat/Chat";
 import Forum from "./components/Forums/Forum";
 import PrivacyPolicy from './components/Footer/PrivacyPolicy';
+import Post from './components/Posts/Post';
 
 function App() {
   return (
@@ -41,6 +42,9 @@ function App() {
             <Route exact path="/privacy">
               <PrivacyPolicy />
               <Footer />
+            </Route>
+            <Route path="/post/new">
+              <Post />
             </Route>
             <ProtectedRoute exact path={"/profile"} component={Profile}/>
             {/* <ProtectedRoute exact path={"/outpage"} component={OutPage}/> */}

@@ -37,7 +37,7 @@ module.exports = {
             })
             .catch(err => res.json(err))
 
-        const promise3 = Post.find({forum: req.params.id})
+        const promise3 = Post.find({game: req.params.id})
             .then(post => {
                 // res.json(game)
                 return post;
