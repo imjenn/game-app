@@ -24,7 +24,7 @@ const Login = () => {
                     // e.preventDefault();
                     console.log(res)
                     localStorage.setItem("isAuthenticated", "true");
-                    localStorage.setItem("User", res.data);
+                    localStorage.setItem("User", JSON.stringify(res.data));
                     history.push('/profile', {id: res.data}); //Will redirect the user after login is successful
                     console.log('Login Successful');
                     // window.location.reload();
