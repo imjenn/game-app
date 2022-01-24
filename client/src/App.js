@@ -43,7 +43,7 @@ function App() {
               <PrivacyPolicy />
               <Footer />
             </Route>
-            <Route path="/post/new">
+            <Route path="/post/new/:id">
               <Post />
             </Route>
             <ProtectedRoute exact path={"/profile"} component={Profile}/>
