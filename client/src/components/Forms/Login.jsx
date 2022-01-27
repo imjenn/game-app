@@ -15,6 +15,15 @@ const Login = () => {
 
     const [errorState, setErrorState] = useState({})
 
+    const showPassword = () => {
+        let x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+
     //Modified: will redirect the user to homepage after successful login
     const loginSubmit = (e) => {
         e.preventDefault();
@@ -56,7 +65,9 @@ const Login = () => {
                     </div>
                     <div>
                         <label>Password: </label>
-                        <input type="password" name="password" onChange={loginChangeHandler} placeholder="Password"/>
+                        <input type="password" id="password" name="password" 
+                            onChange={loginChangeHandler} placeholder="Password"/>
+                        <i onClick={showPassword} className="fa fa-eye" aria-hidden="true"></i> 
                     </div>
                     <input className={styles.reg_btn} type="submit" value="LOG IN" />
                     <p>Don't have an account? <a href="/register">Sign Up</a></p>

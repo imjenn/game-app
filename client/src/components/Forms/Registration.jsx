@@ -70,26 +70,34 @@ const Login = () => {
                 <h1 className={styles.reg_header}>REGISTRATION</h1>
                 <form onSubmit={registerSubmit}>
                     <div>
-                        <label>Username </label><br />
-                        <input type="text" id="username" name="username" onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
+                        <label>Username </label>
+                        <br/>
+                        <input type="text" id="username" name="username" 
+                            onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
                         {(errorState.username) ? <small>Invalid Username</small> : null}
                     </div>
                     <div>
-                        <label>Email </label><br />
-                        <input type="text" name="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                        <label>Email </label>
+                        <br/>
+                        <input type="text" id="email" name="email" 
+                            onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
                         {(errorState.email) ? <small>Invalid Email</small> : null}
                     </div>
                     <div>
-                        <label>Password </label><br />
-                        <input type="password" name="password" id="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                        <label>Password </label>
+                        <br/>
+                        <input type="password" name="password" id="password" 
+                            onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
                         {(errorState.password) ? <small>Invalid Password</small> : null}
                         <i onClick={showPassword} className="fa fa-eye" aria-hidden="true"></i>
                     </div>
                     <div>
-                        <label>Confirm Password </label><br />
-                        <input type="password" name="confirmPassword" onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm your password" />
-                        <i onClick={showPassword} className="fa fa-eye" aria-hidden="true"></i> 
+                        <label>Confirm Password </label>
+                        <br/>
+                        <input type="password" name="confirmPassword" 
+                            onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm your password" />
                         {(errorState.confirmPassword) ? <small>Invalid Password</small> : null}
+                        <i onClick={showPassword} className="fa fa-eye" aria-hidden="true"></i> 
                     </div>
                     <div className={styles.checkbox}>
                         <input type="checkbox" id="email" />

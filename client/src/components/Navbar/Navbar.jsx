@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import logo from '../images/logo.png'
 import styles from './Navbar.module.css';
 import axios from "axios";
-import {useEffect} from "react";
+import { useEffect } from "react";
 
 const Navbar = () => {
     const isAuthenticated = localStorage.getItem("isAuthenticated");
@@ -28,49 +28,54 @@ const Navbar = () => {
             .catch(err => console.log(err))
     }
 
-    const isLogedin = () =>{
-        if (isAuthenticated === "true"){
-            document.getElementById('navLinks').hidden = true;
-            document.getElementById('navLinks2').hidden = false;
-        }else {
-            document.getElementById('navLinks').hidden = false;
-            document.getElementById('navLinks2').hidden = true;
+    const isLogedin = () => {
+        if (isAuthenticated === "true") {
+            document.getElementById('navlinks').hidden = true;
+            document.getElementById('navlinks2').hidden = false;
+        } else {
+            document.getElementById('navlinks').hidden = false;
+            document.getElementById('navlinks2').hidden = true;
         }
     }
 
     return (
-        <div className={styles.navbar_container}>
-            <Link to="/"><img src={logo} alt="Player 1 Logo" width="300" height="55" /></Link>
-            <ul className={styles.navlinks_1}>
-                <li>
-                    <Link className={styles.nav_links}>
-                        ABOUT
+        <div>
+            <div className={styles.navbar_container_1}>
+                <Link to="/"><img src={logo} alt="Player 1 Logo" width="300" height="55" /></Link>
+                <ul className={styles.navlinks_1}>
+                    <li>
+                        <Link className={styles.nav_links}>
+                            ABOUT
                     </Link>
-                </li>
-                <li>
-                    <Link className={styles.nav_links} to="/games">
-                        GAMES
+                    </li>
+                    <li>
+                        <Link className={styles.nav_links} to="/games">
+                            GAMES
                     </Link>
-                </li>
-                <li>
-                    <Link className={styles.nav_links}>
-                        NEWS
+                    </li>
+                    <li>
+                        <Link className={styles.nav_links}>
+                            NEWS
                     </Link>
-                </li>
-            </ul>
-            <div id={"navLinks"} className={styles.navlinks_2}>
-                <Link to="/register" className={styles.register_btn}>
-                    SIGN UP
+                    </li>
+                </ul>
+                <div id={"navlinks"} className={styles.navlinks_2}>
+                    <Link to="/register" className={styles.register_btn}>
+                        SIGN UP
                 </Link>
-                <Link to="/login" className={styles.login_btn}>
-                    LOG IN
+                    <Link to="/login" className={styles.login_btn}>
+                        LOG IN
                 </Link>
-            </div>
+                </div>
 
-            <div id={"navLinks2"} className={styles.navlinks_2}>
-                <Link onClick={logout} className={styles.register_btn}>
-                    Logout
+                <div id={"navlinks2"} className={styles.navlinks_2}>
+                    <Link onClick={logout} className={styles.register_btn}>
+                        Logout
                 </Link>
+                </div>
+            </div>
+            <div className={styles.navbar_container_2}>
+                <p>New updates coming soon! Follow us on social media and stay tuned!</p>
             </div>
         </div>
     )
