@@ -22,7 +22,7 @@ const ChatCom = () =>{
     const joinRoom = (e, idx) =>{
         console.log(chatRooms[idx]);
 
-        let index = idx.target.__reactProps$c1q1j72e177.name;
+        // let index = idx.target.__reactProps$c1q1j72e177.name;
         // let room = chatRooms[index].roomName;
         //
         // if(chatRooms[index].roomName !== ""){

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import styles from './Home.module.css'
+import phone from '../images/phone.png';
 
 
 const Home = () => {
@@ -55,8 +56,10 @@ const Home = () => {
                 </div>
             </div>
             <div className={styles.home_section_1}>
-                <h2>What is Player 1?</h2>
-                <p>Welcome to our platform! Here at the Player 1 community, you'll be able to play some of your favorite games while making new friends.</p>
+                <h2 className={styles.home_section_1_header}>
+                    Make your games more interesting by connecting with new people in the Player 1 community!
+                </h2>
+                <img src={phone} alt="Phone logo"/>
             </div>
         </div>
     )

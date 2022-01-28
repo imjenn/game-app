@@ -33,7 +33,7 @@ function App() {
               <Login />
             </Route>
             <Route exact path="/games">
-              <Games />
+              <Games /> 
               <Footer />
             </Route>
             <Route exact path="/games/:id">
@@ -41,12 +41,12 @@ function App() {
               <Footer />
             </Route>
             <Route exact path="/privacy">
-              <PrivacyPolicy />
+              <PrivacyPolicy /> 
               <Footer />
             </Route>
-            <Route path="/post/new/:id">
+            <ProtectedRoute path="/post/new/:id">
               <Post />
-            </Route>
+            </ProtectedRoute>
             <ProtectedRoute exact path={"/profile"} component={Profile}/>
             {/* <ProtectedRoute exact path={"/outpage"} component={OutPage}/> */}
             <ProtectedRoute exact path={"/chat"}>

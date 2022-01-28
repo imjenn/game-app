@@ -10,7 +10,7 @@ const Navbar = () => {
     const history = useHistory();
 
     useEffect(() => {
-        isLogedin();
+        isLoggedin();
     }, []);
 
     const logout = (e) => {
@@ -28,7 +28,7 @@ const Navbar = () => {
             .catch(err => console.log(err))
     }
 
-    const isLogedin = () => {
+    const isLoggedin = () => {
         if (isAuthenticated === "true") {
             document.getElementById('navlinks').hidden = true;
             document.getElementById('navlinks2').hidden = false;
@@ -41,37 +41,39 @@ const Navbar = () => {
     return (
         <div>
             <div className={styles.navbar_container_1}>
-                <Link to="/"><img src={logo} alt="Player 1 Logo" width="300" height="55" /></Link>
+                <Link to="/">
+                    <img src={logo} alt="Player 1 Logo" width="300" height="55" />
+                </Link>
                 <ul className={styles.navlinks_1}>
                     <li>
                         <Link className={styles.nav_links}>
                             ABOUT
-                    </Link>
+                        </Link>
                     </li>
                     <li>
                         <Link className={styles.nav_links} to="/games">
                             GAMES
-                    </Link>
+                        </Link>
                     </li>
                     <li>
                         <Link className={styles.nav_links}>
                             NEWS
-                    </Link>
+                        </Link>
                     </li>
                 </ul>
-                <div id={"navlinks"} className={styles.navlinks_2}>
+                <div id="navlinks" className={styles.navlinks_2}>
                     <Link to="/register" className={styles.register_btn}>
                         SIGN UP
-                </Link>
+                    </Link>
                     <Link to="/login" className={styles.login_btn}>
                         LOG IN
-                </Link>
+                    </Link>
                 </div>
 
-                <div id={"navlinks2"} className={styles.navlinks_2}>
+                <div id="navlinks2" className={styles.navlinks_2}>
                     <Link onClick={logout} className={styles.register_btn}>
-                        Logout
-                </Link>
+                        LOGOUT
+                    </Link>
                 </div>
             </div>
             <div className={styles.navbar_container_2}>

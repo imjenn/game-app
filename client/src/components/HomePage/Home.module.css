@@ -63,6 +63,13 @@ video {
 }
 
 .home_section_1 {
-    background-color: #8d52ff;
+    background-color: #1a1a1b;
     height: 500px;
+    display: flex;
+}
+
+.home_section_1_header {
+    width: 30%;
+    align-self: center;
+    margin-left: 10%;
 }

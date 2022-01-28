@@ -34,7 +34,7 @@ const Forum = (props) => {
         <div className={styles.forum_container}>
             <div className={styles.forum_header}>
                 {/* {JSON.stringify(forum)} */}
-                <img src={game.image} alt="" height="50%" />
+                <img className={styles.forum_image} src={game.image} alt="" />
                 <h1>{game.title} Forum</h1>
                 <div className={styles.forum_side_nav}>
                     <ul>
@@ -47,15 +47,18 @@ const Forum = (props) => {
             <div className={styles.forum_body}>
                 <form className={styles.forum_create_post} action="">
                     <p>User pfp</p>
-                    <Link to={`/post/new/${game._id}`}><input className={styles.forum_create_post_input}type="text" placeholder="Create Post" /></Link>
+                    <Link to={`/post/new/${game._id}`}>
+                        <input className={styles.forum_create_post_input} type="text" placeholder="Create Post" />
+                    </Link>
                 </form>
-                {/* {JSON.stringify(posts)} */}
                 {loaded ? posts.sort((a, b) => b.createdAt.localeCompare(a.createdAt)).map((p, idx) => {
                     return (
                         <div key={idx} className={styles.forum_post}>
-                            {p.title}<br/>
-                            {p.body}<br/>
-                            {p.createdAt}
+                            <h3>{p.title}</h3><br />
+                            <div>
+                                {p.body}<br />
+                                {p.createdAt}
+                            </div>
                         </div>
                     )
                 }) : null}
