@@ -22,6 +22,7 @@ require('./routes/game.routes')(app);
 require('./routes/user.routes')(app);
 require('./routes/forum.routes')(app);
 require('./routes/post.routes')(app);
+require('./routes/chat.routes')(app);
 
 const io = new Server(server, {
     cors: {

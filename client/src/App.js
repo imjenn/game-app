@@ -14,6 +14,7 @@ import Chat from "./components/Chat/Chat";
 import Forum from "./components/Forums/Forum";
 import PrivacyPolicy from './components/Footer/PrivacyPolicy';
 import Post from './components/Posts/Post';
+import ChatCom from "./components/Chat/ChatCom";
 
 function App() {
   return (
@@ -50,6 +51,10 @@ function App() {
             {/* <ProtectedRoute exact path={"/outpage"} component={OutPage}/> */}
             <ProtectedRoute exact path={"/chat"}>
               <Chat />
+              <Footer />
+            </ProtectedRoute>
+            <ProtectedRoute exact path={"/chatroom"}>
+              <ChatCom />
               <Footer />
             </ProtectedRoute>
             <ProtectedRoute exact path="/forum/:id">

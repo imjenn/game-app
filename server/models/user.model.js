@@ -24,7 +24,8 @@ const UserSchema = new mongoose.Schema({
     isOnline: {
         type: Boolean
     },
-    post: [ { type: mongoose.Schema.ObjectId, ref : "Post"} ]
+    post: [ { type: mongoose.Schema.ObjectId, ref : "Post"} ],
+    chat: [ { type: mongoose.Schema.ObjectId, ref : "Chat"} ]
 
 }, {timestamps: true});
 
