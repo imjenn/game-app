@@ -1,5 +1,6 @@
 import io from "socket.io-client";
 import Container from 'react-bootstrap/Container'
+import style from './Chat.module.css'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import axios from "axios";
@@ -8,10 +9,11 @@ import React, {useEffect, useState} from "react";
 const socket = io.connect("http://localhost:8000");
 
 const ChatCom = () =>{
-    // const [currentMessage, setCurrentMessage] = useState("");
-    // const [messageList, setMessageList] = useState([]);
+    const [currentMessage, setCurrentMessage] = useState("");
+    const [messageList, setMessageList] = useState([]);
 
     const [chatRooms, setChatRooms] = useState([]);
+    const [room, setRoom] = useState([]);
     const [errors, setErrors] = useState("");
     const user = JSON.parse(localStorage.getItem("User"));
 
@@ -19,57 +21,73 @@ const ChatCom = () =>{
         await getRoom()
     }, []);
 
+
+    useEffect(() => {
+
+        socket.on("receive_message", (data) => {
+            setMessageList((list) => [...list, data]);
+        });
+
+    }, [socket]);
+
+
     const joinRoom = (e, idx) =>{
+        setMessageList([])
+        //window.location.reload()
         console.log(chatRooms[idx]);
 
-        let index = idx.target.__reactProps$c1q1j72e177.name;
-        // let room = chatRooms[index].roomName;
-        //
-        // if(chatRooms[index].roomName !== ""){
-        //     console.log(chatRooms[index].roomName)
-        //     socket.emit("join_room", room);
-        // }
+        let room = chatRooms[idx].roomName;
+        setRoom(room);
+
+        for (let i = 0; i < chatRooms[idx].messageHistory.length - 1; i++) {
+            let data = {
+                room: room,
+                uthor: chatRooms[idx].messageHistory[i].username,
+                message: chatRooms[idx].messageHistory[i].msg,
+                time: chatRooms[idx].messageHistory[i].timestamp,
+            }
+
+
+            setMessageList((list) => [...list, data]);
+        }
+
+        if(chatRooms[idx].roomName !== ""){
+            console.log(chatRooms[idx].roomName)
+            socket.emit("join_room", room);
+        }
     }
 
 
-    // const sendMessage = async () => {
-    //     if (currentMessage !== "") {
-    //         const messageData = {
-    //             room: room,
-    //             author: username,
-    //             message: currentMessage,
-    //             time:
-    //                 new Date(Date.now()).getHours() +
-    //                 ":" +
-    //                 new Date(Date.now()).getMinutes(),
-    //         };
-    //
-    //         await socket.emit("send_message", messageData);
-    //         setMessageList((list) => [...list, messageData]);
-    //         saveMessage(messageData);
-    //         getMessage()
-    //     }
-    // };
+    const sendMessage = async () => {
+        if (currentMessage !== "") {
+            const messageData = {
+                room: room,
+                author: user,
+                message: currentMessage,
+                time:
+                    new Date(Date.now()).getHours() +
+                    ":" +
+                    new Date(Date.now()).getMinutes(),
+            };
 
-    // useEffect(() => {
-    //
-    //     socket.on("receive_message", (data) => {
-    //         setMessageList((list) => [...list, data]);
-    //     });
-    //
-    // }, [socket]);
+            await socket.emit("send_message", messageData);
+            setMessageList((list) => [...list, messageData]);
+            saveMessage(messageData);
+        }
+    };
 
-    // const saveMessage = (message) => {
-    //     axios.post("http://localhost:8000/saveMessage", message, { withCredentials: true })
-    //         .then(res => {
-    //             console.log(res.status)
-    //         })
-    //         .catch(err => {
-    //             console.log(err.response);
-    //             console.log(err.response.data)
-    //         })
-    //
-    // }
+
+    const saveMessage = (message) => {
+        axios.post("http://localhost:8000/saveMessage", message, { withCredentials: true })
+            .then(res => {
+                console.log(res.status)
+            })
+            .catch(err => {
+                console.log(err.response);
+                console.log(err.response.data)
+            })
+
+    }
 
     // const getMessage = () => {
     //
@@ -123,6 +141,42 @@ const ChatCom = () =>{
                     }) : null}
                 </Col>
                 <Col xs={6}>
+                    <div className={style.chatwindow}>
+                        <div className={style.chatbody}>
+                            {messageList.map((messageContent) => {
+                                return (
+                                    <div
+                                        className={style.message}
+                                        id={user === messageContent.author ? "you" : "other"}
+                                    >
+                                        <div>
+                                            <div className={style.messagecontent}>
+                                                <p>{messageContent.message}</p>
+                                            </div>
+                                            <div className="message-meta">
+                                                <p id="time">{messageContent.time}</p>
+                                                <p id="author">{messageContent.author}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                    <div className={'chat-footer'}>
+                        <div>
+                            <input
+                                type="text"
+                                placeholder="Hey..."
+                                onChange={(event) => {
+                                    setCurrentMessage(event.target.value);
+                                }}
+                            />
+                        </div>
+                        <div>
+                            <button onClick={sendMessage}>&#9658;</button>
+                        </div>
+                    </div>
                 </Col>
             </Row><br/><br/><br/><br/>
         </Container>
