@@ -36,16 +36,16 @@ io.on("connection", (socket) => {
 
     socket.on("join_room", (data) => {
         socket.join(data);
-        // console.log(`User with ID: ${socket.id} joined room: ${data}`);
+        console.log(`User with ID: ${socket.id} joined room: ${data}`);
     });
 
     socket.on("send_message", (data) => {
         socket.to(data.room).emit("receive_message", data);
-        // console.log(data);
+        console.log(data);
     });
 
     socket.on("disconnect", () => {
-        // console.log("User Disconnected", socket.id);
+        console.log("User Disconnected", socket.id);
     });
 });
 
