@@ -6,45 +6,42 @@ import React, { useEffect, useState } from "react";
 
 const ChatCom = () => {
     const socket = io.connect("http://localhost:8000");
-    const [currentMessage, setCurrentMessage] = useState("");
-    const [messageList, setMessageList] = useState([]);
-    const [chatRooms, setChatRooms] = useState([]);
-    const [room, setRoom] = useState("");
-    const [currentChatRoom, setCurrentChatRoom] = useState('');
-    const [isRoomSelected, setIsRoomSelected] = useState(false);
     const user = JSON.parse(localStorage.getItem("User"));
 
+    const [room, setRoom] = useState("");
+    const [chatRooms, setChatRooms] = useState([]);
+    const [messageList, setMessageList] = useState([]);
+    const [currentMessage, setCurrentMessage] = useState("");
+    const [currentChatRoom, setCurrentChatRoom] = useState('');
+    const [isRoomSelected, setIsRoomSelected] = useState(false);
 
-
-    useEffect(async () => {
-        await getRoom()
-        updateScroll()
-    }, []);
-
-
+    //Socket Listener
     socket.on("receive_message", (data) => {
-        console.log(data)
         setMessageList((list) => [...list, data]);
+        updateScroll()
     });
 
+    //Retrieves messages upon loading the page
+    useEffect(async () => {
+        await getRoom()
+    }, []);
 
     function updateScroll() {
-        var myDiv = document.getElementById("chatwindow");
+        let myDiv = document.getElementById("chatwindow");
         myDiv.scrollTop = myDiv.scrollHeight;
     }
 
     const joinRoom = async (e, idx) => {
+        setIsRoomSelected(true);
         setCurrentChatRoom(idx);
         await getMessage(idx)
         updateScroll()
 
         if (chatRooms[idx].roomName !== "") {
-            console.log(chatRooms[idx].roomName)
             let room = chatRooms[idx].roomName;
             socket.emit("join_room", room);
         }
     }
-
 
     const sendMessage = async () => {
         document.getElementById('chatSendButton').value = "";
@@ -59,7 +56,6 @@ const ChatCom = () => {
                     ":" +
                     new Date(Date.now()).getMinutes(),
             };
-
 
             socket.emit("send_message", messageData);
             await saveMessage(messageData);
@@ -82,7 +78,6 @@ const ChatCom = () => {
 
     const getMessage = (idx) => {
         setMessageList([])
-        console.log(chatRooms[idx]);
 
         let room = chatRooms[idx].roomName;
         setRoom(room);
@@ -95,21 +90,17 @@ const ChatCom = () => {
                 time: chatRooms[idx].messageHistory[i].timestamp,
             }
 
-
             setMessageList((list) => [...list, data]);
         }
     }
 
     const getRoom = () => {
-        if (isRoomSelected) {
+        if (isRoomSelected === true) {
             getMessage(currentChatRoom);
         }
-
-        console.log("This is the user:", user);
         axios.get(`http://localhost:8000/chatRooms/${user}`)
             .then(res => {
                 setChatRooms(res.data);
-                // console.log(res.data);
             })
             .catch(err => console.log(err));
     }
