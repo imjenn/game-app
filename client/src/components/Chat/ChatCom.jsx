@@ -4,9 +4,8 @@ import style from './Chat.module.css'
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const socket = io.connect("http://localhost:8000");
-
 const ChatCom = () => {
+    const socket = io.connect("http://localhost:8000");
     const [currentMessage, setCurrentMessage] = useState("");
     const [messageList, setMessageList] = useState([]);
     const [chatRooms, setChatRooms] = useState([]);
@@ -15,18 +14,18 @@ const ChatCom = () => {
     const [isRoomSelected, setIsRoomSelected] = useState(false);
     const user = JSON.parse(localStorage.getItem("User"));
 
-    useEffect(() => {
-        getRoom()
+
+
+    useEffect(async () => {
+        await getRoom()
+        updateScroll()
     }, []);
 
-    useEffect(() => {
-        socket.on("receive_message", (data) => {
-            console.log(data)
-            setMessageList((list) => [...list, data]);
-            getRoom()
-        });
 
-    }, [messageList]);
+    socket.on("receive_message", (data) => {
+        console.log(data)
+        setMessageList((list) => [...list, data]);
+    });
 
 
     function updateScroll() {
@@ -61,12 +60,12 @@ const ChatCom = () => {
                     new Date(Date.now()).getMinutes(),
             };
 
+
             socket.emit("send_message", messageData);
-            setMessageList((list) => [...list, messageData]);
             await saveMessage(messageData);
             updateScroll()
         }
-    };
+    }
 
 
     const saveMessage = (message) => {
