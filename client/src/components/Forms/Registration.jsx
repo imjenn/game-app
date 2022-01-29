@@ -94,7 +94,7 @@ const Login = () => {
                     <div>
                         <label>Confirm Password </label>
                         <br/>
-                        <input type="password" name="confirmPassword" 
+                        <input type="password" name="confirmPassword" id="password" 
                             onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm your password" />
                         {(errorState.confirmPassword) ? <small>Invalid Password</small> : null}
                         <i onClick={showPassword} className="fa fa-eye" aria-hidden="true"></i> 

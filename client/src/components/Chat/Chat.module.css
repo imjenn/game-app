@@ -5,6 +5,81 @@
     height: 100vh;
 }
 
+.chatRoomName{
+    margin-top: 10%;
+    border-right: 2px solid white;
+    height: 100vh;
+}
+
+.chatRoomName h4{
+    text-align: center;
+}
+
+.chatNameText{
+    margin: 10vh 10vh;
+}
+
+.roomNameText{
+    font-family: Times;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.container{
+    border: 2px solid #dedede;
+    background-color: rgba(241, 241, 241, 0.56);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    bottom: 0px;
+}
+
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.container .author {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.bodyText{
+    margin-top: 20%;
+
+}
+
+
+.timeright {
+    float: right;
+    color: #ffffff;
+}
+
+.author span{
+    color: white;
+}
+
+.container p {
+    color: black;
+}
+
+.inputMessage{
+    width: 10vh;
+}
 
 .joinChatContainer {
     display: flex;
@@ -98,38 +173,6 @@
     padding-left: 5px;
     overflow-wrap: break-word;
     word-break: break-word;
-}
-
-#you {
-    justify-content: flex-start;
-}
-
-#you .messagecontent {
-    justify-content: flex-start;
-}
-
-#you .messagemeta {
-    justify-content: flex-start;
-    margin-left: 5px;
-}
-
-#other {
-    justify-content: flex-end;
-}
-
-#other .messagecontent {
-    justify-content: flex-end;
-    background-color: cornflowerblue;
-}
-
-#other .messagemeta {
-    justify-content: flex-end;
-    margin-right: 5px;
-}
-
-.messagemeta #author {
-    margin-left: 10px;
-    font-weight: bold;
 }
 
 .chatwindow .chatbody .message .messagemeta {

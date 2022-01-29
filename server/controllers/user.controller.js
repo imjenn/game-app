@@ -36,7 +36,7 @@ module.exports = {
             })
     },
 
-    login: (req, res) => {
+    login: async (req, res) => {
         // Find user by email
         User.findOne({ email: req.body.email })
             .then(user => {

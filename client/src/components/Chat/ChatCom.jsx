@@ -1,71 +1,55 @@
 import io from "socket.io-client";
-import Container from 'react-bootstrap/Container'
+import { Row, Container, Col } from 'react-bootstrap'
 import style from './Chat.module.css'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import axios from "axios";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 const socket = io.connect("http://localhost:8000");
 
-const ChatCom = () =>{
+const ChatCom = () => {
     const [currentMessage, setCurrentMessage] = useState("");
     const [messageList, setMessageList] = useState([]);
-
     const [chatRooms, setChatRooms] = useState([]);
-    const [room, setRoom] = useState([]);
-    const [errors, setErrors] = useState("");
+    const [room, setRoom] = useState("");
+    const [currentChatRoom, setCurrentChatRoom] = useState('');
+    const [isRoomSelected, setIsRoomSelected] = useState(false);
     const user = JSON.parse(localStorage.getItem("User"));
 
-    useEffect(async () => {
-        await getRoom()
+    useEffect(() => {
+        getRoom()
     }, []);
 
-
     useEffect(() => {
-
         socket.on("receive_message", (data) => {
+            console.log(data)
             setMessageList((list) => [...list, data]);
+            getRoom()
         });
 
-    }, [socket]);
+    }, [messageList]);
 
 
-    const joinRoom = (e, idx) =>{
-        setMessageList([])
-        //window.location.reload()
-        console.log(chatRooms[idx]);
+    function updateScroll() {
+        var myDiv = document.getElementById("chatwindow");
+        myDiv.scrollTop = myDiv.scrollHeight;
+    }
 
-        // let index = idx.target.__reactProps$c1q1j72e177.name;
-        // let room = chatRooms[index].roomName;
-        //
-        // if(chatRooms[index].roomName !== ""){
-        //     console.log(chatRooms[index].roomName)
-        //     socket.emit("join_room", room);
-        // }
-        let room = chatRooms[idx].roomName;
-        setRoom(room);
+    const joinRoom = async (e, idx) => {
+        setCurrentChatRoom(idx);
+        await getMessage(idx)
+        updateScroll()
 
-        for (let i = 0; i < chatRooms[idx].messageHistory.length - 1; i++) {
-            let data = {
-                room: room,
-                uthor: chatRooms[idx].messageHistory[i].username,
-                message: chatRooms[idx].messageHistory[i].msg,
-                time: chatRooms[idx].messageHistory[i].timestamp,
-            }
-
-
-            setMessageList((list) => [...list, data]);
-        }
-
-        if(chatRooms[idx].roomName !== ""){
+        if (chatRooms[idx].roomName !== "") {
             console.log(chatRooms[idx].roomName)
+            let room = chatRooms[idx].roomName;
             socket.emit("join_room", room);
         }
     }
 
 
     const sendMessage = async () => {
+        document.getElementById('chatSendButton').value = "";
+
         if (currentMessage !== "") {
             const messageData = {
                 room: room,
@@ -77,9 +61,10 @@ const ChatCom = () =>{
                     new Date(Date.now()).getMinutes(),
             };
 
-            await socket.emit("send_message", messageData);
+            socket.emit("send_message", messageData);
             setMessageList((list) => [...list, messageData]);
-            saveMessage(messageData);
+            await saveMessage(messageData);
+            updateScroll()
         }
     };
 
@@ -96,73 +81,74 @@ const ChatCom = () =>{
 
     }
 
-    // const getMessage = () => {
-    //
-    //     axios.get("http://localhost:8000/getMessages")
-    //         .then(res => {
-    //             console.log("what happen")
-    //             console.log(res.data.messageHistory[res.data.messageHistory.length-1].msg)
-    //
-    //             for (let i = 0; i < res.data.messageHistory.length - 1; i++) {
-    //                 let data = {
-    //                     room: room,
-    //                     author: res.data.messageHistory[i].username,
-    //                     message: res.data.messageHistory[i].msg,
-    //                     time: res.data.messageHistory[i].timestamp,
-    //                 }
-    //
-    //                 setMessageList((list) => [...list, data]);
-    //             }
-    //
-    //         })
-    //         .catch(err => {
-    //             console.log(err.response);
-    //             console.log(err.response.data)
-    //         })
-    //
-    //     //setMessageList(data);
-    //
-    // }
+    const getMessage = (idx) => {
+        setMessageList([])
+        console.log(chatRooms[idx]);
 
-    const getRoom = () =>{
+        let room = chatRooms[idx].roomName;
+        setRoom(room);
+
+        for (let i = 0; i < chatRooms[idx].messageHistory.length; i++) {
+            let data = {
+                room: room,
+                author: chatRooms[idx].messageHistory[i].username,
+                message: chatRooms[idx].messageHistory[i].msg,
+                time: chatRooms[idx].messageHistory[i].timestamp,
+            }
+
+
+            setMessageList((list) => [...list, data]);
+        }
+    }
+
+    const getRoom = () => {
+        if (isRoomSelected) {
+            getMessage(currentChatRoom);
+        }
+
         console.log("This is the user:", user);
         axios.get(`http://localhost:8000/chatRooms/${user}`)
             .then(res => {
                 setChatRooms(res.data);
-                console.log(res.data);
+                // console.log(res.data);
             })
             .catch(err => console.log(err));
     }
 
 
-    return(
+    return (
         <Container fluid={true}>
             <Row>
                 <Col>
-                    {chatRooms ? chatRooms.map((rooms, idx) => {
-                        return (
-                            <div key={idx}>
-                                <h6 onClick={(e) => joinRoom(e, idx)}>{rooms.roomName}</h6><br/>
-                            </div>
-                        )
-                    }) : null}
+                    <div className={style.chatRoomName}>
+                        <h4>Chat Rooms</h4>
+                        <div className={style.chatNameText}>
+                            {chatRooms ? chatRooms.map((rooms, idx) => {
+                                return (
+                                    <div key={idx}>
+                                        <h6 className={style.roomNameText} onClick={(e) => joinRoom(e, idx)}>{rooms.roomName}</h6><br />
+                                    </div>
+                                )
+                            }) : null}
+                        </div>
+                    </div>
                 </Col>
-                <Col xs={6}>
-                    <div className={style.chatwindow}>
+                <Col xs={9}>
+                    <div id={'chatwindow'} className={style.chatwindow}>
                         <div className={style.chatbody}>
                             {messageList.map((messageContent) => {
                                 return (
                                     <div
                                         className={style.message}
-                                        id={user === messageContent.author ? "you" : "other"}
                                     >
-                                        <div>
-                                            <div className={style.messagecontent}>
-                                                <p>{messageContent.message}</p>
+                                        <div className={style.container}>
+                                            <div className={style.author}>
+                                                <img src={'https://images-platform.99static.com//uTAtZgMS24eD2FMF2X_927B24y0=/449x2030:1344x2925/fit-in/500x500/99designs-contests-attachments/92/92601/attachment_92601493'} />
+                                                <span>{messageContent.author} </span>
                                             </div>
-                                            <div className="message-meta">
-                                                <p id="time">{messageContent.time}</p>
-                                                <p id="author">{messageContent.author}</p>
+                                            <div>
+                                                <p className={style.bodyText}>{messageContent.message}</p><br /><br />
+                                                <span className={style.timeright}>{messageContent.time}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -172,72 +158,22 @@ const ChatCom = () =>{
                     </div>
                     <div className={'chat-footer'}>
                         <div>
-                            <input
+                            <input className={style.inputMessage}
                                 type="text"
+                                id={'chatSendButton'}
                                 placeholder="Hey..."
                                 onChange={(event) => {
                                     setCurrentMessage(event.target.value);
                                 }}
                             />
-                        </div>
-                        <div>
                             <button onClick={sendMessage}>&#9658;</button>
                         </div>
                     </div>
                 </Col>
-            </Row><br/><br/><br/><br/>
+            </Row><br /><br /><br /><br />
         </Container>
     )
 
-
-
-    // return(
-    //     <Container fluid={true}>
-    //         <Row>
-    //             <Col>
-    //                 <a></a>
-    //             </Col>
-    //             <Col xs={6}>
-    //                 <div className={style.chatwindow}>
-    //                     <div className={style.chatbody}>
-    //                         {messageList.map((messageContent) => {
-    //                             return (
-    //                                 <div
-    //                                     className={style.message}
-    //                                     id={username === messageContent.author ? "you" : "other"}
-    //                                 >
-    //                                     <div>
-    //                                         <div className={style.messagecontent}>
-    //                                             <p>{messageContent.message}</p>
-    //                                         </div>
-    //                                         <div className="message-meta">
-    //                                             <p id="time">{messageContent.time}</p>
-    //                                             <p id="author">{messageContent.author}</p>
-    //                                         </div>
-    //                                     </div>
-    //                                 </div>
-    //                             );
-    //                         })}
-    //                     </div>
-    //                 </div>
-    //                 <div className={'chat-footer'}>
-    //                     <div>
-    //                         <input
-    //                             type="text"
-    //                             placeholder="Hey..."
-    //                             onChange={(event) => {
-    //                                 setCurrentMessage(event.target.value);
-    //                             }}
-    //                         />
-    //                     </div>
-    //                     <div>
-    //                         <button onClick={sendMessage}>&#9658;</button>
-    //                     </div>
-    //                 </div>
-    //             </Col>
-    //         </Row><br/><br/><br/><br/>
-    //     </Container>
-    // )
 }
 
 export default ChatCom;
