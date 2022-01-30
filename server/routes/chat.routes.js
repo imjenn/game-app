@@ -2,9 +2,18 @@ const Chat = require("../controllers/chat.controller");
 
 module.exports = (app) => {
 
-    // Join Chat Rppm
+    // Join chatroom
     app.post('/new', Chat.join)
 
-    // Read
+    // Retrieve one chatroom
     app.get('/chatRooms/:id', Chat.findRooms)
+
+    // Create chat room
+    app.post('/newChat', Chat.createChat)
+
+    // Create message
+    app.post('/saveMessage', Chat.newMessageList)
+
+    // Retrieve all messages
+    app.get('/getMessages', Chat.messageList)
 }
