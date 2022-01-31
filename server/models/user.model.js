@@ -46,11 +46,11 @@ const UserSchema = new mongoose.Schema({
 // })
 
 // BEFORE SAVING THE USER, SWAP OUT PASSWORD WITH HAShED PASSWORD
-// UserSchema.pre("save", function(next) {
-//     bcrypt.hash(this.password, 10)
-//         .then(hashedPassword => {
-//             this.password = hashedPassword
-//             next()
-//         })
-// })
+UserSchema.pre("save", function(next) {
+    bcrypt.hash(this.password, 10)
+        .then(hashedPassword => {
+            this.password = hashedPassword
+            next()
+        })
+})
 module.exports.User = mongoose.model('User', UserSchema);
