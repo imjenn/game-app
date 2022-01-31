@@ -1,50 +1,13 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
 
-.Picker{
-    background: #6e3ad3;
-}
-
-.emoji-icon {
-    cursor: pointer;
-    position: absolute;
-    top: 8px;
-    right: 5px;
-}
-
-.chatfooter .input-style {
-    padding: 7px 30px 7px 10px;
-    width: calc(100% - 40px);
-    border-radius: 3px;
-    border: 1px solid #999;
-    margin-bottom: 10px;
-}
-
 .JoinChat{
     /* margin: 10vh 20vh; */
     height: 100vh;
 }
 
-.chatRoomName{
-    margin-top: 10%;
-    border-right: 2px solid white;
-    height: 100vh;
-}
+/********** Container **********/
 
-.chatRoomName h4{
-    text-align: center;
-}
-
-.chatNameText{
-    margin: 10vh 10vh;
-}
-
-.roomNameText{
-    font-family: Times;
-    font-size: 15px;
-    cursor: pointer;
-}
-
-.container{
+.container {
     border: 2px solid #dedede;
     background-color: rgba(241, 241, 241, 0.56);
     border-radius: 5px;
@@ -68,7 +31,7 @@
     border-radius: 50%;
 }
 
-.container .author {
+.container .user {
     float: left;
     max-width: 60px;
     width: 100%;
@@ -77,18 +40,41 @@
     text-align: center;
 }
 
-.bodyText{
+/********** Servers **********/
+
+.chat_servers {
+    margin-top: 10%;
+    border-right: 2px solid white;
+    height: 100vh;
+}
+
+.chat_servers h4 {
+    text-align: center;
+}
+
+.chat_server_names {
+    margin: 10vh 10vh;
+}
+
+.chat_server_names {
+    font-family: Times;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/********** Chat Messages **********/
+
+.chat_body_message {
     margin-top: 20%;
 
 }
 
-
-.timeright {
+.chat_timestamp {
     float: right;
     color: #ffffff;
 }
 
-.author span{
+.user span{
     color: white;
 }
 
@@ -97,7 +83,7 @@
 }
 
 .inputMessage{
-    background-color: #2e7d32;
+    width: 10vh;
 }
 
 .joinChatContainer {
@@ -140,47 +126,43 @@
     background: #2e7d32;
 }
 
-.chatwindow {
+.chat_window {
     margin-top: 3%;
     border-radius: 2px;
     border: 1px solid rgb(255, 255, 255);
     opacity: 0.7;
     background-color: rgba(0, 0, 0, 0.84);
     width: available;
-    height: 80vh;
+    height: 80vh !important;
     overflow-y: scroll;
 }
 
-.chatwindow .chatEmoji{
-
-}
-
-.chatwindow p {
+.chat_window p {
     margin: 0;
 }
 
-.chatwindow .chatbody {
+.chat_window, .chat_body {
     border: 1px solid #263238;
     background: rgba(0, 0, 0, 0.84);
     position: relative;
 }
-.chatwindow .chatbody .message-container {
+.chat_window, .chat_body .message-container {
     width: 100%;
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
-.chatwindow .chatbody .message-container::-webkit-scrollbar {
+.chat_window .chat_body .message-container::-webkit-scrollbar {
     display: none;
 }
-.chatwindow .chatbody .message {
+.chat_window .chat_body .message {
     height: auto;
     padding: 10px;
     display: flex;
 }
 
-.chatwindow .chatbody .message .messagecontent {
+.chat_window .chat_body .message .messagecontent {
     width: auto;
     height: auto;
     min-height: 40px;
@@ -198,39 +180,38 @@
     word-break: break-word;
 }
 
-.chatwindow .chatbody .message .messagemeta {
+.chat_window .chat_body .message .messagemeta {
     display: flex;
     font-size: 12px;
 }
 
-.chat-footer{
+.input_chat_section {
     display: inline-flex;
 }
 
-.chat-footer input{
+.input_chat_section input{
     width: 100vh;
 }
 
-.chatwindow .chat-footer {
+.chat_window, .input_chat_section {
     height: 40px;
     border: 1px solid #263238;
     border-top: none;
     display: flex;
 }
 
-.chatwindow .chat-footer input {
+.chat_window, .input_chat_section input {
     height: 100%;
     flex: 85%;
     border: 0;
     padding: 0 0.7em;
     font-size: 1em;
     border-right: 1px dotted #607d8b;
-
     outline: none;
     font-family: "Open Sans", sans-serif;
 }
 
-.chatwindow .chat-footer button {
+.chat_window .input_chat_section button {
     border: 0;
     display: grid;
     place-items: center;
@@ -243,10 +224,9 @@
     color: lightgray;
 }
 
-.chatwindow .chat-footer button:hover {
+.chat_window .input_chat_section button:hover {
     color: #43a047;
 }
-
 .hide {
     opacity: 0 !important;
 }
