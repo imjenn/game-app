@@ -1,5 +1,24 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
 
+.Picker{
+    background: #6e3ad3;
+}
+
+.emoji-icon {
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 5px;
+}
+
+.chatfooter .input-style {
+    padding: 7px 30px 7px 10px;
+    width: calc(100% - 40px);
+    border-radius: 3px;
+    border: 1px solid #999;
+    margin-bottom: 10px;
+}
+
 .JoinChat{
     /* margin: 10vh 20vh; */
     height: 100vh;
@@ -78,7 +97,7 @@
 }
 
 .inputMessage{
-    width: 10vh;
+    background-color: #2e7d32;
 }
 
 .joinChatContainer {
@@ -130,6 +149,10 @@
     width: available;
     height: 80vh;
     overflow-y: scroll;
+}
+
+.chatwindow .chatEmoji{
+
 }
 
 .chatwindow p {
@@ -223,6 +246,7 @@
 .chatwindow .chat-footer button:hover {
     color: #43a047;
 }
+
 .hide {
     opacity: 0 !important;
 }
