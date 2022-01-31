@@ -18,7 +18,7 @@ const ChatCom = () => {
 
     const [showPicker, setShowPicker] = useState(false);
 
-    const onEmojiClick = (event, emojiObject) => {
+    const onEmojiClick = (e, emojiObject) => {
         setCurrentMessage(prevInput => prevInput + emojiObject.emoji);
         setShowPicker(false);
     };
@@ -117,13 +117,13 @@ const ChatCom = () => {
         <Container fluid={true}>
             <Row>
                 <Col>
-                    <div className={style.chatRoomName}>
-                        <h4>Chat Rooms</h4>
-                        <div className={style.chatNameText}>
+                    <div className={style.chat_servers}>
+                        <h4>Servers</h4>
+                        <div className={style.chat_server_names}>
                             {chatRooms ? chatRooms.map((rooms, idx) => {
                                 return (
                                     <div key={idx}>
-                                        <h6 className={style.roomNameText} onClick={(e) => joinRoom(e, idx)}>{rooms.roomName}</h6><br />
+                                        <h6 onClick={(e) => joinRoom(e, idx)}>{rooms.roomName}</h6><br />
                                     </div>
                                 )
                             }) : null}
@@ -131,21 +131,19 @@ const ChatCom = () => {
                     </div>
                 </Col>
                 <Col xs={9}>
-                    <div id={'chatwindow'} className={style.chatwindow}>
-                        <div className={style.chatbody}>
+                    <div id={'chatwindow'} className={style.chat_window}>
+                        <div className={style.chat_body}>
                             {messageList.map((messageContent) => {
                                 return (
-                                    <div
-                                        className={style.message}
-                                    >
+                                    <div className={style.message}>
                                         <div className={style.container}>
-                                            <div className={style.author}>
+                                            <div className={style.user}>
                                                 <img src={'https://images-platform.99static.com//uTAtZgMS24eD2FMF2X_927B24y0=/449x2030:1344x2925/fit-in/500x500/99designs-contests-attachments/92/92601/attachment_92601493'} />
                                                 <span>{messageContent.author} </span>
                                             </div>
                                             <div>
-                                                <p className={style.bodyText}>{messageContent.message}</p><br /><br />
-                                                <span className={style.timeright}>{messageContent.time}</span>
+                                                <p className={style.chat_body_message}>{messageContent.message}</p>
+                                                <span className={style.chat_timestamp}>{messageContent.time}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -153,18 +151,18 @@ const ChatCom = () => {
                             })}
                         </div>
                     </div>
-                    <div className={'chat-footer'}>
-
+                    <div className={style.input_chat_section}>
                         <div>
                             <input className={style.inputStyle}
                                 type="text"
                                 id={'chatSendButton'}
-                                placeholder="Hey..."
+                                placeholder="Type your message here"
                                 value={currentMessage}
-                                onChange={(event) => {
-                                    setCurrentMessage(event.target.value);
+                                onChange={(e) => {
+                                    setCurrentMessage(e.target.value);
                                 }}
-                            /><img
+                            />
+                            <img
                                 className={style.emojiIcon}
                                 src="https://icons.getbootstrap.com/assets/icons/emoji-smile.svg"
                                 onClick={() => setShowPicker(val => !val)}
@@ -178,7 +176,7 @@ const ChatCom = () => {
                         </div>
                     </div>
                 </Col>
-            </Row><br /><br /><br /><br />
+            </Row>
         </Container>
     )
 
