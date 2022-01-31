@@ -3,6 +3,7 @@ import { Row, Container, Col } from 'react-bootstrap'
 import style from './Chat.module.css'
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Picker from 'emoji-picker-react';
 
 const ChatCom = () => {
     const socket = io.connect("http://localhost:8000");
@@ -14,6 +15,13 @@ const ChatCom = () => {
     const [currentMessage, setCurrentMessage] = useState("");
     const [currentChatRoom, setCurrentChatRoom] = useState('');
     const [isRoomSelected, setIsRoomSelected] = useState(false);
+
+    const [showPicker, setShowPicker] = useState(false);
+
+    const onEmojiClick = (event, emojiObject) => {
+        setCurrentMessage(prevInput => prevInput + emojiObject.emoji);
+        setShowPicker(false);
+    };
 
     //Socket Listener
     socket.on("receive_message", (data) => {
@@ -44,8 +52,6 @@ const ChatCom = () => {
     }
 
     const sendMessage = async () => {
-        document.getElementById('chatSendButton').value = "";
-
         if (currentMessage !== "") {
             const messageData = {
                 room: room,
@@ -57,6 +63,7 @@ const ChatCom = () => {
                     new Date(Date.now()).getMinutes(),
             };
 
+            setCurrentMessage('')
             socket.emit("send_message", messageData);
             await saveMessage(messageData);
             updateScroll()
@@ -147,16 +154,27 @@ const ChatCom = () => {
                         </div>
                     </div>
                     <div className={'chat-footer'}>
+
                         <div>
-                            <input className={style.inputMessage}
+                            <input className={style.inputStyle}
                                 type="text"
                                 id={'chatSendButton'}
                                 placeholder="Hey..."
+                                value={currentMessage}
                                 onChange={(event) => {
                                     setCurrentMessage(event.target.value);
                                 }}
+                            /><img
+                                className={style.emojiIcon}
+                                src="https://icons.getbootstrap.com/assets/icons/emoji-smile.svg"
+                                onClick={() => setShowPicker(val => !val)}
                             />
+
                             <button onClick={sendMessage}>&#9658;</button>
+                            {showPicker && <Picker
+                                onEmojiClick={onEmojiClick}
+                                pickerStyle={{bottom: '435px', left: '35vw', width: '50%', opacity: '0.9', background: 'transparent'}}/>
+                            }
                         </div>
                     </div>
                 </Col>
