@@ -30,5 +30,41 @@ module.exports = {
             .then(resp => res.json(resp))
             .catch(err => res.status(400).json({msg: "not found", err}))
 
-    }
+    },
+
+    joinChat: (req, res) => {
+        const userID = req.body.user;
+        const roomID = req.body.roomID;
+        console.log(userID)
+        console.log(roomID)
+
+        User.findOneAndUpdate(
+            {
+                _id: userID,
+            }, {$push: {
+                    chat: roomID
+                }}, function (err){
+                console.log(err);
+            }
+        )
+    },
+
+    joinChatURL: (req, res) => {
+        const userID = req.body.user;
+        const roomID = req.params.id;
+        console.log("userid", userID)
+        console.log("roomID", roomID)
+
+        User.findOneAndUpdate(
+            {
+                _id: userID,
+            }, {$push: {
+                    chat: roomID
+                }}, function (err){
+                console.log(err);
+            }
+        )
+    },
+
+
 }

@@ -1,76 +1,90 @@
-import io from "socket.io-client";
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
 import {useState} from "react";
-import ChatCom from "./ChatCom";
+import style from './Chat.module.css'
+import io from "socket.io-client";
 import axios from "axios";
-import style from './Chat.module.css';
 
-const socket = io.connect("http://localhost:8000");
+const Chat = (props) =>{
+    const user = JSON.parse(localStorage.getItem("User"));
+    const [roomURL, setRoomURL] = useState("");
+    const [roomID, setRoomID] = useState("");
 
-const Chat = () =>{
-    const [username, setUsername] = useState("");
-    const [room, setRoom] = useState("");
-    const [messageList, setMessageList] = useState("");
-    const [showChat, setShowChat] = useState(false);
-
-    const joinRoom = () =>{
-        if(username !== "" && room !== ""){
-            socket.emit("join_room", room);
-            setShowChat(true);
+    const joinRoom = (e) => {
+        if (roomURL !== ""){
+            joinRoomURL(e,roomURL)
+            return;
         }
+
+        console.log("hit hit")
+        let chatInfo ={
+            user: user,
+            roomID: roomID
+        };
+
+        e.preventDefault();
+        axios.post("http://localhost:8000/joinchat", chatInfo, { withCredentials: true })
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.log(err.response);
+                console.log(err.response.data)
+            })
+
     }
 
-    const createRoom = (e) => {
-        const newChat = {
-            owner: "email@email",
-            roomName: room
-        }
+    const joinRoomURL = (e,url) => {
+        let chatInfo ={user: user};
+        e.preventDefault();
+        axios.post(url, chatInfo, { withCredentials: true })
+            .then(res => {
+                console.log(res.data)
+                console.log("ney")
+            })
+            .catch(err => {
+                console.log(err.response);
+                console.log(err.response.data)
+            })
 
-        if (username === "" && room === "") {
-            alert("Please Fill in the input fields");
-        } else {
-
-            e.preventDefault();
-            axios.post("http://localhost:8000/newchat", newChat, { withCredentials: true })
-                .then(res => {
-                    console.log(res.data)
-                    socket.emit("join_room", room);
-                    setShowChat(true);
-                })
-                .catch(err => {
-                    console.log(err.response);
-                    console.log(err.response.data)
-                })
-        }
     }
 
-    return (
-        <div className="Chat">
-            {!showChat ? (
-                <div className={style.joinChatContainer}>
-                    <div className={style.JoinChatBox}>
-                        <div className={style.JoinChat}>
-                            <h3>Join A Chat</h3>
-                            <input
-                                type="text"
-                                placeholder="John..."
-                                onChange={(event) => {
-                                    setUsername(event.target.value);
-                                }}
-                            /><br/>
-                            <input
-                                type="text"
-                                placeholder="Room ID..."
-                                onChange={(event) => {
-                                    setRoom(event.target.value);
-                                }}
-                            /><br/><br/>
-                            <button onClick={createRoom}>Join A Room</button>
+
+    return(
+        <div>
+            <Modal.Dialog>
+                <Modal.Header onClick={props.handleClose} closeButton>
+                    <Modal.Title style={{color: 'black', marginLeft:'36%'}}>Join A Chat</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    <div className={style.joinChatContainer}>
+                        <div className={style.JoinChatBox}>
+                                <input
+                                    type="text"
+                                    name={'url'}
+                                    placeholder="URL...."
+                                    onChange={(event) => {
+                                        setRoomURL(event.target.value);
+                                    }}
+                                /><br/>
+                                <span>OR</span><br/>
+                                <input
+                                    type="text"
+                                    placeholder="Room ID..."
+                                    onChange={(event) => {
+                                        setRoomID(event.target.value);
+                                    }}
+                                /><br/><br/>
                         </div>
                     </div>
-                </div>
-                ) : (
-                    <ChatCom socket={socket} username={username} room={room} />
-                )}
+                </Modal.Body>
+
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={props.handleClose}>Close</Button>
+                    <Button variant="primary" onClick={joinRoom}>Save changes</Button>
+                </Modal.Footer>
+            </Modal.Dialog>
         </div>
     );
 }
