@@ -231,7 +231,7 @@
     margin-top:-200px;
     z-index: 1;
 }
-
+/* 
 .modal-footer {
     display: flex;
     flex-wrap: wrap;
@@ -242,4 +242,4 @@
     border-top: 1px solid #dee2e6;
     border-bottom-right-radius: calc(0.3rem - 1px);
     border-bottom-left-radius: calc(0.3rem - 1px);
-}
+} */
