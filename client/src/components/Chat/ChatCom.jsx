@@ -4,6 +4,7 @@ import style from './Chat.module.css'
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Picker from 'emoji-picker-react';
+import Chat from "./Chat";
 
 const ChatCom = () => {
     const socket = io.connect("http://localhost:8000");
@@ -17,11 +18,17 @@ const ChatCom = () => {
     const [isRoomSelected, setIsRoomSelected] = useState(false);
 
     const [showPicker, setShowPicker] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+
+    const togglePopup = () => {
+        setIsOpen(!isOpen);
+    }
 
     const onEmojiClick = (e, emojiObject) => {
         setCurrentMessage(prevInput => prevInput + emojiObject.emoji);
         setShowPicker(false);
     };
+
 
     //Socket Listener
     socket.on("receive_message", (data) => {
@@ -38,6 +45,7 @@ const ChatCom = () => {
         let myDiv = document.getElementById("chatwindow");
         myDiv.scrollTop = myDiv.scrollHeight;
     }
+
 
     const joinRoom = async (e, idx) => {
         setIsRoomSelected(true);
@@ -115,10 +123,21 @@ const ChatCom = () => {
 
     return (
         <Container fluid={true}>
+            {/*{!showWindow ? (<Chat/>):( null)}*/}
+            <div className={style.popUpBox}>
+                {isOpen && <Chat handleClose={togglePopup}/>}
+            </div>
             <Row>
                 <Col>
                     <div className={style.chat_servers}>
-                        <h4>Servers</h4>
+                        <div className={style.header}>
+                            <div>
+                                <h4 style={{width: '250px'}}>Game Server</h4>
+                            </div>
+                            <div>
+                                <button onClick={togglePopup} style={{border: 'none', background: "none", color: 'purple', fontSize: '40px', marginBottom: '8px'}}>+</button>
+                            </div>
+                        </div>
                         <div className={style.chat_server_names}>
                             {chatRooms ? chatRooms.map((rooms, idx) => {
                                 return (
@@ -161,17 +180,23 @@ const ChatCom = () => {
                                 onChange={(e) => {
                                     setCurrentMessage(e.target.value);
                                 }}
+                                   onKeyPress={event => {
+                                       if (event.key === 'Enter') {
+                                           sendMessage();
+                                       }
+                                   }}
                             />
                             <img
                                 className={style.emojiIcon}
-                                src="https://icons.getbootstrap.com/assets/icons/emoji-smile.svg"
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Twemoji_1f600.svg/640px-Twemoji_1f600.svg.png"
+                                style={{width: "35px"}}
                                 onClick={() => setShowPicker(val => !val)}
                             />
 
-                            <button onClick={sendMessage}>&#9658;</button>
+
                             {showPicker && <Picker
                                 onEmojiClick={onEmojiClick}
-                                pickerStyle={{bottom: '435px', left: '35vw', width: '50%', opacity: '0.9', background: 'transparent'}}/>
+                                pickerStyle={{bottom: '435px', left: '35vw', width: '50%'}}/>
                             }
                         </div>
                     </div>

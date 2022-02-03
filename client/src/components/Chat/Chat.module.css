@@ -99,32 +99,16 @@
     font-size: 2.5rem;
     margin-bottom: 1rem;
 }
+
 .joinChatContainer input {
-    width: 210px;
-    height: 40px;
+    width: 300px;
+    height: 30px;
     margin: 7px;
-    border: 2px solid #43a047;
-    border-radius: 5px;
+    border: 2px solid rgba(0, 0, 0, 0.84);
     padding: 5px;
-    font-size: 16px;
+    font-size: 12px;
 }
 
-.joinChatContainer button {
-    width: 225px;
-    height: 50px;
-    margin: 7px;
-    border: none;
-    border-radius: 5px;
-    padding: 5px;
-    font-size: 16px;
-    background: #43a047;
-    color: #fff;
-    cursor: pointer;
-}
-
-.joinChatContainer button:hover {
-    background: #2e7d32;
-}
 
 .chat_window {
     margin-top: 3%;
@@ -230,3 +214,32 @@
 .hide {
     opacity: 0 !important;
 }
+
+.header {
+    display: inline-flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.popUpBox{
+    position:fixed;
+    top:50%;
+    left:50%;
+    width:400px;
+    height:400px;
+    margin-left:-200px;
+    margin-top:-200px;
+    z-index: 1;
+}
+/* 
+.modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: calc(0.3rem - 1px);
+    border-bottom-left-radius: calc(0.3rem - 1px);
+} */

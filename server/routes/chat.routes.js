@@ -7,4 +7,8 @@ module.exports = (app) => {
 
     // Read
     app.get('/chatRooms/:id', Chat.findRooms)
+
+    app.post('/joinChat', Chat.joinChat)
+
+    app.post('/joinRoomURL/:id', Chat.joinChatURL)
 }
