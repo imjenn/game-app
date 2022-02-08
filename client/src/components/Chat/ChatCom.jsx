@@ -14,14 +14,9 @@ const ChatCom = () => {
     const [chatRooms, setChatRooms] = useState([]); // contains the list of all the users current rooms
     const [joinedChatRooms, setJoinedChatRooms] = useState([]); // Keeps track of all the rooms that tbe user has opened up/joined (resolves Socket connection issue)
     const [messageList, setMessageList] = useState([]);
-<<<<<<< HEAD
     const [currentMessage, setCurrentMessage] = useState(""); // is used to keep track of the most recent sent message
     const [currentChatRoom, setCurrentChatRoom] = useState(''); // Current room that the user is using
-=======
-    const [currentMessage, setCurrentMessage] = useState("");
-    const [currentChatRoom, setCurrentChatRoom] = useState('');
     const [currentChatRoomID, setCurrentChatRoomID] = useState('');
->>>>>>> 1d4f0b4568a31495aa00aea3c132e5877ed765b7
     const [isRoomSelected, setIsRoomSelected] = useState(false);
 
     const [showPicker, setShowPicker] = useState(false);
@@ -185,7 +180,7 @@ const ChatCom = () => {
                         </div>
                     </div>
                     <div className={style.input_chat_section}>
-                        <div>
+                        <div className={style.searchBar}>
                             <input className={style.inputStyle}
                                 type="text"
                                 id={'chatSendButton'}
