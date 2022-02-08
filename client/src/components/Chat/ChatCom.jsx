@@ -10,11 +10,12 @@ const ChatCom = () => {
     const socket = io.connect("http://localhost:8000");
     const user = JSON.parse(localStorage.getItem("User"));
 
-    const [room, setRoom] = useState("");
-    const [chatRooms, setChatRooms] = useState([]);
+    const [room, setRoom] = useState(""); // Used to identify the current room in use
+    const [chatRooms, setChatRooms] = useState([]); // contains the list of all the users current rooms
+    const [joinedChatRooms, setJoinedChatRooms] = useState([]); // Keeps track of all the rooms that tbe user has opened up/joined (resolves Socket connection issue)
     const [messageList, setMessageList] = useState([]);
-    const [currentMessage, setCurrentMessage] = useState("");
-    const [currentChatRoom, setCurrentChatRoom] = useState('');
+    const [currentMessage, setCurrentMessage] = useState(""); // is used to keep track of the most recent sent message
+    const [currentChatRoom, setCurrentChatRoom] = useState(''); // Current room that the user is using
     const [isRoomSelected, setIsRoomSelected] = useState(false);
 
     const [showPicker, setShowPicker] = useState(false);
@@ -55,8 +56,12 @@ const ChatCom = () => {
 
         if (chatRooms[idx].roomName !== "") {
             let room = chatRooms[idx].roomName;
-            socket.emit("join_room", room);
+            if(joinedChatRooms.includes(room) === false) {
+                setJoinedChatRooms((list) => [...list, room]);
+                socket.emit("join_room", room);
+            }
         }
+
     }
 
     const sendMessage = async () => {
