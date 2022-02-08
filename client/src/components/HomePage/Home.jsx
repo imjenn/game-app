@@ -2,30 +2,26 @@ import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import styles from './Home.module.css'
 import phone from '../images/phone.png';
+import apex2 from '../images/apex2.PNG';
+import apex3 from '../images/apex3.PNG';
+import apple from '../images/apple.png';
+import google from '../images/google.png';
 
 
 const Home = () => {
 
-    const playVid = () => {
-        let vid = document.getElementById("banner_video");
-        let text = document.getElementById("play")
-        if (vid.paused === true) {
-            console.log("is paused")
-            text.innerText = "PAUSE"
-            vid.play();
-        } else {
-            vid.pause();
-            text.innerText = "PLAY"
-        }
-    }
-
     return (
         <div>
             <div>
-                <video id="banner_video" loop muted autoPlay>
-                    <source src="https://www.leagueoflegends.com/static/hero-0632cbf2872c5cc0dffa93d2ae8a29e8.webm" type="video/webm" />
+                <div className={styles.home_container_header}>
+                    <h1>WELCOME, PLAYER</h1>
+                    <p>Join thousands of other players who are online now</p>
+                    <Link className={styles.home_container_button} to="/register">GET STARTED</Link>
+                </div>
+                <img src={apex3} style={{ width: "100%", position: "absolute" }} />
+                <video loop muted autoPlay style={{ opacity: "0.35", width: "100%" }}>
+                    <source src="http://phpcoder.tech/html-css/Smoke.mp4" tupe="video/mmp4" />
                 </video>
-                <button id="play" className={styles.play_button} onClick={playVid}>PLAY</button>
             </div>
             <div className={styles.row}>
                 <div className={styles.column}>
@@ -56,10 +52,20 @@ const Home = () => {
                 </div>
             </div>
             <div className={styles.home_section_1}>
-                <h2 className={styles.home_section_1_header}>
-                    Make your games more interesting by connecting with new people in the Player 1 community!
-                </h2>
-                <img src={phone} alt="Phone logo"/>
+                <div className={styles.home_section_1_header}>
+                    <h2>
+                        Play together, share your highlights on forums, join game servers, and meet new players in the Player 1 community!
+                    </h2>
+                    <div className={styles.app_buttons}>
+                        <a href="https://www.apple.com/app-store/">
+                            <img src={apple} />
+                        </a>
+                        <a href="https://play.google.com/store?hl=en_US&gl=US">
+                            <img src={google} />
+                        </a>
+                    </div>
+                </div>
+                <img className={styles.phone_logo} src={phone} alt="Phone logo" />
             </div>
         </div>
     )

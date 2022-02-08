@@ -1,7 +1,6 @@
 .App {
-  /* background-color: #181818; */
-  /* background-color: #292c2d; */
-  background: radial-gradient(#1b1b2c, #000);
+  /* background: radial-gradient(#181818, #000); */
+  background-color: #030910;
   margin: 0;
   padding: 0;
   color: #eee;

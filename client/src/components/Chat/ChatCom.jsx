@@ -14,8 +14,14 @@ const ChatCom = () => {
     const [chatRooms, setChatRooms] = useState([]); // contains the list of all the users current rooms
     const [joinedChatRooms, setJoinedChatRooms] = useState([]); // Keeps track of all the rooms that tbe user has opened up/joined (resolves Socket connection issue)
     const [messageList, setMessageList] = useState([]);
+<<<<<<< HEAD
     const [currentMessage, setCurrentMessage] = useState(""); // is used to keep track of the most recent sent message
     const [currentChatRoom, setCurrentChatRoom] = useState(''); // Current room that the user is using
+=======
+    const [currentMessage, setCurrentMessage] = useState("");
+    const [currentChatRoom, setCurrentChatRoom] = useState('');
+    const [currentChatRoomID, setCurrentChatRoomID] = useState('');
+>>>>>>> 1d4f0b4568a31495aa00aea3c132e5877ed765b7
     const [isRoomSelected, setIsRoomSelected] = useState(false);
 
     const [showPicker, setShowPicker] = useState(false);
@@ -49,6 +55,7 @@ const ChatCom = () => {
 
 
     const joinRoom = async (e, idx) => {
+        setCurrentChatRoomID(chatRooms[idx]._id);
         setIsRoomSelected(true);
         setCurrentChatRoom(idx);
         await getMessage(idx)
@@ -68,6 +75,7 @@ const ChatCom = () => {
         if (currentMessage !== "") {
             const messageData = {
                 room: room,
+                roomID: currentChatRoomID,
                 author: user,
                 message: currentMessage,
                 time:
@@ -121,6 +129,7 @@ const ChatCom = () => {
         axios.get(`http://localhost:8000/chatRooms/${user}`)
             .then(res => {
                 setChatRooms(res.data);
+                console.log(res.data)
             })
             .catch(err => console.log(err));
     }
