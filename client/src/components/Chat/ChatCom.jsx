@@ -9,6 +9,7 @@ import Chat from "./Chat";
 const ChatCom = () => {
     const socket = io.connect("http://localhost:8000");
     const user = JSON.parse(localStorage.getItem("User"));
+    const username = JSON.parse(localStorage.getItem("Username"));
 
     const [room, setRoom] = useState(""); // Used to identify the current room in use
     const [chatRooms, setChatRooms] = useState([]); // contains the list of all the users current rooms
@@ -71,7 +72,7 @@ const ChatCom = () => {
             const messageData = {
                 room: room,
                 roomID: currentChatRoomID,
-                author: user,
+                author: username,
                 message: currentMessage,
                 time:
                     new Date(Date.now()).getHours() +
