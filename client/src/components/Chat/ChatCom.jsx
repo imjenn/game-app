@@ -82,7 +82,7 @@ const ChatCom = () => {
             setCurrentMessage('')
             socket.emit("send_message", messageData);
             await saveMessage(messageData);
-            updateScroll()
+            updateScroll();
         }
     }
 
@@ -205,7 +205,7 @@ const ChatCom = () => {
 
                             {showPicker && <Picker
                                 onEmojiClick={onEmojiClick}
-                                pickerStyle={{bottom: '435px', left: '35vw', width: '50%'}}/>
+                                pickerStyle={{bottom: '435px', left: '35vw', width: '50%', zIndex: 1}}/>
                             }
                         </div>
                     </div>
