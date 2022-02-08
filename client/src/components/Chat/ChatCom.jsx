@@ -15,6 +15,7 @@ const ChatCom = () => {
     const [messageList, setMessageList] = useState([]);
     const [currentMessage, setCurrentMessage] = useState("");
     const [currentChatRoom, setCurrentChatRoom] = useState('');
+    const [currentChatRoomID, setCurrentChatRoomID] = useState('');
     const [isRoomSelected, setIsRoomSelected] = useState(false);
 
     const [showPicker, setShowPicker] = useState(false);
@@ -48,6 +49,7 @@ const ChatCom = () => {
 
 
     const joinRoom = async (e, idx) => {
+        setCurrentChatRoomID(chatRooms[idx]._id);
         setIsRoomSelected(true);
         setCurrentChatRoom(idx);
         await getMessage(idx)
@@ -63,6 +65,7 @@ const ChatCom = () => {
         if (currentMessage !== "") {
             const messageData = {
                 room: room,
+                roomID: currentChatRoomID,
                 author: user,
                 message: currentMessage,
                 time:
@@ -116,6 +119,7 @@ const ChatCom = () => {
         axios.get(`http://localhost:8000/chatRooms/${user}`)
             .then(res => {
                 setChatRooms(res.data);
+                console.log(res.data)
             })
             .catch(err => console.log(err));
     }
