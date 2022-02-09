@@ -20,6 +20,7 @@ const Navbar = () => {
                 if (res.status === 200) {
                     localStorage.removeItem("isAuthenticated");
                     localStorage.removeItem("User");
+                    localStorage.removeItem("Username");
                     history.push('/'); //Will redirect the user after login is successful
                     window.location.reload();
                 } else {
