@@ -8,9 +8,4 @@ module.exports = (app) => {
     app.post('/login', User.login)
     // Logout
     app.post('/logout', User.logout)
-
-    // This should go in chat.routes.js
-    app.post('/newChat', User.createChat)
-    app.post('/saveMessage', User.newMessageList)
-    app.get('/getMessages', User.messageList)
 }
