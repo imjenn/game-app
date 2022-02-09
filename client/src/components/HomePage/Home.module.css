@@ -1,17 +1,19 @@
-video {
-    width: 100%;
-    z-index: -1;
-}
-
-.play_button {
-    border: none;
-    background: none;
-    color: #eee;
-    font-weight: bold;
-    font-size: 20pt;
+.home_container_header {
     position: absolute;
     z-index: 1;
-    left: 0;
+    margin: 10%;
+}
+
+.home_container_button {
+    text-decoration: none;
+    color: #eee;
+    background-color: #8d52ff;
+    padding: 3%;
+}
+
+.home_container_button:hover {
+    background-color: #6e3ad3;
+    color: #eee;
 }
 
 .row {
@@ -63,13 +65,32 @@ video {
 }
 
 .home_section_1 {
-    background-color: #1a1a1b;
+    /* background-color: #1a1a1b; */
+    margin-top: 5%;
     height: 500px;
     display: flex;
+    justify-content: space-around;
 }
 
 .home_section_1_header {
-    width: 30%;
+    width: 40%;
     align-self: center;
     margin-left: 10%;
+}
+
+.home_section_1_header h2 {
+    margin-bottom: 10%;
+}
+
+.phone_logo {
+    float: right;
+}
+
+.app_buttons {
+    display: flex;
+}
+
+.app_buttons img {
+    width: 180px;
+
 }
