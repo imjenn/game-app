@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
+import styles from "./Post.module.css";
 
 
 
@@ -45,24 +46,23 @@ const Post = (props) => {
     }
 
     return (
-
-        <form onSubmit={createPost}>
-            {errors ? errors.map((err, idx) => <p key={idx}>{err}</p> ) : null}
-            <p>
-                <input type="text" name="title" placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
-            </p>
-            <Editor  apiKey='zz8m28t3rsp7vogxgs1401rukv3z94g9vgnk2dga1b8x1c39' cloudChannel='dev' init={{selector: 'textarea',
-                height: 400,
-                width: 600,
-                plugins: 'lists code emoticons',
-                toolbar: 'undo redo | styleselect | bold italic | ' +
-                    'alignleft aligncenter alignright alignjustify | ' +
-                    'outdent indent | numlist bullist | emojis',
-                emoticons_images_url: 'http://my.server/images/emoticons/',
-                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }' }} onEditorChange={handleChange}/>
-            <br />
-            <input type="submit" value="Submit" />
-        </form>
+        <div className={styles.textBox}>
+            <form onSubmit={createPost}>
+                {errors ? errors.map((err, idx) => <p key={idx}>{err}</p> ) : null}
+                <p>
+                    <input type="text" name="title" placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
+                </p>
+                <Editor apiKey='zz8m28t3rsp7vogxgs1401rukv3z94g9vgnk2dga1b8x1c39' cloudChannel='dev' init={{
+                    plugins: 'lists code emoticons importcss',
+                    height: 400,
+                    width: 800,
+                    toolbar: "formatselect | fontselect | bold italic strikethrough forecolor backcolor formatpainter | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | link insertfile image | removeformat | code | addcomment | checklist | casechange",
+                }}
+                         onEditorChange={handleChange}/>
+                <br />
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
     )
 }
 
