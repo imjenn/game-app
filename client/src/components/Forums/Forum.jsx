@@ -14,7 +14,9 @@ const Forum = (props) => {
     const [posts, setPosts] = useState({})
     const { id } = useParams();
 
+
     useEffect(() => {
+
         axios.get(`http://localhost:8000/forum/${id}`)
             .then(res => {
                 console.log(res.data);
