@@ -89,3 +89,8 @@ input[type="submit"] {
     padding: 10% 0;
 }
 
+.gameServerTitle{
+    font-size: 14px;
+    display: block;
+    cursor: pointer;
+}
