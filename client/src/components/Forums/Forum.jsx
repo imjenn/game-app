@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp, faArrowDown, faMessage, faShare, faBookmark, faEllipsis, faFireFlameSimple, faStar, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
+import { Markup } from 'interweave';
 
 const Forum = (props) => {
 
@@ -85,7 +86,7 @@ const Forum = (props) => {
                             <div className={styles.forum_post_body}>
                                 <p>Posted by user {moment(p.createdAt).fromNow()}</p>
                                 <h3>{p.title}</h3>
-                                <div>{p.body}</div>
+                                <div><Markup content={p.body} /></div>
                                 <div className={styles.post_icons}>
                                     <p>
                                         <FontAwesomeIcon icon={faMessage} />
