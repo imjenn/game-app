@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
+import { Editor } from '@tinymce/tinymce-react';
+
+
 
 const Post = (props) => {
 
@@ -13,6 +16,10 @@ const Post = (props) => {
     const user = JSON.parse(localStorage.getItem("User"));
     console.log(user);
 
+    function handleChange(content, editor){
+        setBody(content);
+    }
+
     const newPost = {
         title: title,
         body: body,
@@ -22,6 +29,7 @@ const Post = (props) => {
 
     const createPost = (e) => {
         e.preventDefault();
+        console.log("hel[",typeof body);
         axios.post('http://localhost:8000/post/new', newPost, { withCredentials: true })
             .then(res => history.push(`/forum/${id}`))
             .catch(err => {
@@ -37,17 +45,24 @@ const Post = (props) => {
     }
 
     return (
-        <div>
-            <h1>Create a new post</h1>
+
+        <form onSubmit={createPost}>
             {errors ? errors.map((err, idx) => <p key={idx}>{err}</p> ) : null}
-            <form onSubmit={createPost}>
-                <p>
-                    <input type="text" name="title" placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
-                </p>
-                <textarea name="body" id="body" cols="30" rows="10" placeholder="Text" onChange={(e) => setBody(e.target.value)}></textarea>
-                <input type="submit" value="Create Post" />
-            </form>
-        </div>
+            <p>
+                <input type="text" name="title" placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
+            </p>
+            <Editor  apiKey='zz8m28t3rsp7vogxgs1401rukv3z94g9vgnk2dga1b8x1c39' cloudChannel='dev' init={{selector: 'textarea',
+                height: 400,
+                width: 600,
+                plugins: 'lists code emoticons',
+                toolbar: 'undo redo | styleselect | bold italic | ' +
+                    'alignleft aligncenter alignright alignjustify | ' +
+                    'outdent indent | numlist bullist | emojis',
+                emoticons_images_url: 'http://my.server/images/emoticons/',
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }' }} onEditorChange={handleChange}/>
+            <br />
+            <input type="submit" value="Submit" />
+        </form>
     )
 }
 

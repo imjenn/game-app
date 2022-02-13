@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from "./Forum.module.css";
 import { Link, useParams } from 'react-router-dom';
-// import gameController from '../../../../server/controllers/game.controller';
+import { Markup } from 'interweave';
 
 const Forum = (props) => {
 
@@ -12,7 +12,9 @@ const Forum = (props) => {
     const [posts, setPosts] = useState({})
     const { id } = useParams();
 
+
     useEffect(() => {
+
         axios.get(`http://localhost:8000/forum/${id}`)
             .then(res => {
                 console.log(res.data);
@@ -56,7 +58,8 @@ const Forum = (props) => {
                         <div key={idx} className={styles.forum_post}>
                             <h3>{p.title}</h3><br />
                             <div>
-                                {p.body}<br />
+                                {/*<div dangerouslySetInnerHTML={{__html: p.body}} />*/}
+                                <Markup content={p.body} />
                                 {p.createdAt}
                             </div>
                         </div>
