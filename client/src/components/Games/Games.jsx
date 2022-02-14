@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import Pagination from "./Pagination";
 import axios from 'axios';
 import styles from "./Games.module.css";
 import { Link, useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faServer, faList12, faClipboardList} from '@fortawesome/free-solid-svg-icons';
+
 
 const Games = (props) => {
     const user = JSON.parse(localStorage.getItem("User"));
     const [games, setGames] = useState([]);
     const [category, setCategory] = useState('title');
     const [gameFavorites,setGameFavorites] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(10);
+
     const { id } = useParams();
 
     // Search result
@@ -18,7 +25,7 @@ const Games = (props) => {
             .then(res => {
                 console.log(res.data);
                 setGames(res.data);
-                setFoundGames(res.data);
+                setFoundGames(res.data)
             })
             .catch(err => console.log(err));
 
@@ -46,25 +53,38 @@ const Games = (props) => {
                 }
             })
             setFoundGames(results);
+
         } else {
             // if field is empty, display all games
             setFoundGames(games);
         }
     }
 
+    // Get current posts
+    let indexOfLastPost = currentPage * postsPerPage;
+    let indexOfFirstPost = indexOfLastPost - postsPerPage;
+    let currentPosts = foundGames.slice(indexOfFirstPost, indexOfLastPost);
+
+    // Change page
+    let paginate = pageNumber => setCurrentPage(pageNumber);
+
     return (
         <div className={styles.games_container}>
             <div className={styles.games_side_nav}>
-                <center>
-                    <br/><br/><select onChange={(e) => {setCategory(e.target.value);}}>
-                        <option value="title">Title</option>
-                        <option value="genre">Genre</option>
-                        <option value="studio">Studio</option>
-                    </select>
-                </center>
+                <ul>
+                    <br/><br/>
+                        <h4><FontAwesomeIcon className={styles.fontAwsome} icon={faClipboardList}/> Category</h4>
+                    <center>
+                        <br/><br/><select onChange={(e) => {setCategory(e.target.value);}}>
+                            <option value="title">Title</option>
+                            <option value="genre">Genre</option>
+                            <option value="studio">Studio</option>
+                        </select>
+                    </center>
+                </ul>
 
                 <br/><br/><br/><br/><ul>
-                    <h4>My Game Server</h4>
+                    <h4><FontAwesomeIcon className={styles.fontAwsome} icon={faServer}/> My Game Server</h4>
                     {gameFavorites ? gameFavorites.map((games, idx) => {
                         return (
                             <Link className={styles.game} to={`/chatroom`}>
@@ -74,7 +94,7 @@ const Games = (props) => {
                     }) : null}
 
                     <br/><br/>
-                    <h4>Game Favorites</h4>
+                    <h4><FontAwesomeIcon className={styles.fontAwsome} icon={faList12}/> Game Favorites</h4>
 
                 </ul>
             </div>
@@ -91,7 +111,7 @@ const Games = (props) => {
                     </div>
                 </div>
                 <div className={styles.display_games}>
-                    {foundGames ? foundGames.map((games, idx) => {
+                    {currentPosts ? currentPosts.map((games, idx) => {
                         return (
                             <Link className={styles.game} to={`/games/${games._id}`}>
                                 <div className={styles.game_card} key={idx}>
@@ -101,6 +121,9 @@ const Games = (props) => {
                             </Link>
                         )
                     }) : null}
+                </div>
+                <div className={styles.paginationListNumber}>
+                    <Pagination postsPerPage={postsPerPage} totalPosts={foundGames.length} paginate={paginate} />
                 </div>
             </div>
         </div>

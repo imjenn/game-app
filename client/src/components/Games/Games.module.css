@@ -89,8 +89,25 @@ input[type="submit"] {
     padding: 10% 0;
 }
 
+h4{
+    color: #6e3ad3;
+    font-weight: bold;
+}
+
 .gameServerTitle{
     font-size: 14px;
     display: block;
     cursor: pointer;
 }
+
+.paginationListNumber{
+    margin: auto;
+    width: 30%;
+    padding: 10px;
+}
+
+.fontAwsome{
+    color: grey;
+    font-size: 20px;
+}
+
