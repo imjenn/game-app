@@ -13,7 +13,8 @@ const Games = (props) => {
     const [category, setCategory] = useState('title');
     const [gameFavorites,setGameFavorites] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(10);
+    const [currentPagination, setPagination] = useState('multiple');
+    const [postsPerPage,setPostsPerPage] = useState(10);
 
     const { id } = useParams();
 
@@ -36,6 +37,17 @@ const Games = (props) => {
             })
             .catch(err => console.log(err));
     }, [])
+
+
+    useEffect( () =>{
+        if(currentPagination === 'multiple'){
+            setPostsPerPage(10);
+        }else {
+            setPostsPerPage(games.length);
+            setFoundGames(games)
+        }
+
+    }, [currentPagination])
 
     const filter = (e) => {
         console.log(category)
@@ -70,60 +82,76 @@ const Games = (props) => {
 
     return (
         <div className={styles.games_container}>
-            <div className={styles.games_side_nav}>
-                <ul>
-                    <br/><br/>
-                        <h4><FontAwesomeIcon className={styles.fontAwsome} icon={faClipboardList}/> Category</h4>
-                    <center>
-                        <br/><br/><select onChange={(e) => {setCategory(e.target.value);}}>
-                            <option value="title">Title</option>
-                            <option value="genre">Genre</option>
-                            <option value="studio">Studio</option>
+            <div className={styles.gameBody}>
+                <div className={styles.games_side_nav}>
+                    <ul>
+                        <br/><br/>
+                            <h5><FontAwesomeIcon className={styles.fontAwsome} icon={faClipboardList}/> Filter Search</h5>
+                        <center>
+                            <br/><br/><select className={styles.customSelect} onChange={(e) => {setCategory(e.target.value);}}>
+                            <option value="title">Default Search</option>
+                            <option value="genre">Advance Search</option>
                         </select>
-                    </center>
-                </ul>
 
-                <br/><br/><br/><br/><ul>
-                    <h4><FontAwesomeIcon className={styles.fontAwsome} icon={faServer}/> My Game Server</h4>
-                    {gameFavorites ? gameFavorites.map((games, idx) => {
-                        return (
-                            <Link className={styles.game} to={`/chatroom`}>
-                                <span className={styles.gameServerTitle}>{games.roomName}</span>
-                            </Link>
-                        )
-                    }) : null}
+                            <br/><br/><select className={styles.customSelect} onChange={(e) => {setPagination(e.target.value);}}>
+                            <option> Pagination</option>
+                            <option value="single">Single</option>
+                            <option value="multiple">Multiple</option>
+                        </select>
 
-                    <br/><br/>
-                    <h4><FontAwesomeIcon className={styles.fontAwsome} icon={faList12}/> Game Favorites</h4>
+                            <br/><br/><select className={styles.customSelect} onChange={(e) => {setCategory(e.target.value);}}>
+                                <option> Category</option>
+                                <option value="title">Title</option>
+                                <option value="genre">Genre</option>
+                                <option value="studio">Studio</option>
+                            </select>
+                        </center>
+                    </ul>
 
-                </ul>
-            </div>
-            <div className={styles.games_section}>
-                <div className={styles.games_header}>
-                    <h1>Games</h1>
-                    <div className={styles.games_search}>
-                        <input className={styles.search_bar}
-                            type="text"
-                            onChange={filter}
-                            placeholder="Search for a game"
-                        />
-                        <input type="submit" value="Search" />
+                    <br/><br/><br/><br/><ul>
+                        <h5><FontAwesomeIcon className={styles.fontAwsome} icon={faServer}/> My Game Server</h5>
+                        {gameFavorites ? gameFavorites.map((games, idx) => {
+                            return (
+                                <Link className={styles.game} to={`/chatroom`}>
+                                    <span className={styles.gameServerTitle}>{games.roomName}</span>
+                                </Link>
+                            )
+                        }) : null}
+
+                        <br/><br/>
+                        <h5><FontAwesomeIcon className={styles.fontAwsome} icon={faList12}/> Game Favorites</h5>
+
+                    </ul>
+                </div>
+
+
+                <div className={styles.games_section}>
+                    <div className={styles.games_header}>
+                        <h1>Games</h1>
+                        <div className={styles.games_search}>
+                            <input className={styles.search_bar}
+                                type="text"
+                                onChange={filter}
+                                placeholder="Search for a game"
+                            />
+                            <input type="submit" value="Search" />
+                        </div>
                     </div>
-                </div>
-                <div className={styles.display_games}>
-                    {currentPosts ? currentPosts.map((games, idx) => {
-                        return (
-                            <Link className={styles.game} to={`/games/${games._id}`}>
-                                <div className={styles.game_card} key={idx}>
-                                    <img className={'img-fluid shadow-4'} src={games.image} alt="" height="350px" width="300px" />
-                                    <h2 className={styles.game_title}>{games.title}</h2>
-                                </div>
-                            </Link>
-                        )
-                    }) : null}
-                </div>
-                <div className={styles.paginationListNumber}>
-                    <Pagination postsPerPage={postsPerPage} totalPosts={foundGames.length} paginate={paginate} />
+                    <div className={styles.display_games}>
+                        {currentPosts ? currentPosts.map((games, idx) => {
+                            return (
+                                <Link className={styles.game} to={`/games/${games._id}`}>
+                                    <div className={styles.game_card} key={idx}>
+                                        <img className={'img-fluid shadow-4'} src={games.image} alt="" height="350px" width="300px" />
+                                        <h2 className={styles.game_title}>{games.title}</h2>
+                                    </div>
+                                </Link>
+                            )
+                        }) : null}
+                    </div>
+                    <div className={styles.paginationListNumber}>
+                        <Pagination postsPerPage={postsPerPage} totalPosts={foundGames.length} paginate={paginate} />
+                    </div>
                 </div>
             </div>
         </div>
