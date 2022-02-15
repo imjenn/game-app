@@ -8,4 +8,6 @@ module.exports = (app) => {
     app.post('/login', User.login)
     // Logout
     app.post('/logout', User.logout)
+    // Get user
+    app.get('/findUser/:id', User.findUser)
 }

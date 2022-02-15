@@ -63,4 +63,23 @@ module.exports = {
         res.clearCookie("usertoken");
         return res.status(200).json("Logged Out")
     },
+
+    findUser: async (req, res) => {
+        let userinfo;
+        console.log(req.params)
+
+        await User.findOne({_id:  req.params.id })
+            .then( user => {
+                if (user === null) {
+                    res.status(400).json({msg: "User not found"});
+                } else {
+                    //console.log(user.messageHistory)
+                    userinfo = user.chat;
+                }
+            })
+
+        await Chat.find().where('_id').in(userinfo)
+            .then(resp => res.json(resp))
+            .catch(err => res.status(400).json({msg: "not found", err}))
+    },
 }

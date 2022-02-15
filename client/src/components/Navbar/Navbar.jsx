@@ -58,7 +58,7 @@ const Navbar = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link className={styles.nav_links}>
+                        <Link to="/news" className={styles.nav_links}>
                             NEWS
                         </Link>
                     </li>
