@@ -29,6 +29,7 @@ require('./routes/user.routes')(app);
 require('./routes/forum.routes')(app);
 require('./routes/post.routes')(app);
 require('./routes/chat.routes')(app);
+require('./routes/article.routes')(app);
 require('./Sockets/socketIO')(io);
 require('./webscraper/articles');
 require('./webscraper/nodecron');

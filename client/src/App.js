@@ -15,6 +15,7 @@ import Forum from "./components/Forums/Forum";
 import PrivacyPolicy from './components/Footer/PrivacyPolicy';
 import Post from './components/Posts/Post';
 import ChatCom from "./components/Chat/ChatCom";
+import GameNews from "./components/News/GameNews";
 
 function App() {
   return (
@@ -38,6 +39,10 @@ function App() {
             </Route>
             <Route exact path="/games/:id">
               <ShowGame />
+              <Footer />
+            </Route>
+            <Route exact path="/news">
+              <GameNews />
               <Footer />
             </Route>
             <Route exact path="/privacy">
