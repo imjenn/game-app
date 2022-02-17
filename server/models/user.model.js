@@ -24,8 +24,10 @@ const UserSchema = new mongoose.Schema({
     isOnline: {
         type: Boolean
     },
-    post: [ { type: mongoose.Schema.ObjectId, ref : "Post"} ],
-    chat: [ { type: mongoose.Schema.ObjectId, ref : "Chat"} ]
+    post: [{ type: mongoose.Schema.ObjectId, ref : "Post" }],
+    chat: [{ type: mongoose.Schema.ObjectId, ref : "Chat" }],
+    comment: [{ type: mongoose.Schema.ObjectId, ref : "Comment" }],
+    like: [{ type: mongoose.Schema.ObjectId, ref : "Like" }]
 
 }, {timestamps: true});
 

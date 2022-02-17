@@ -1,4 +1,4 @@
-const Post = require("../controllers/post.controller");
+const Post = require("../../controllers/Forum/post.controller");
 
 module.exports = (app) => {
 

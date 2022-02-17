@@ -13,7 +13,9 @@ const PostSchema = new mongoose.Schema({
     },
     user: {type: mongoose.Schema.ObjectId, ref : 'User'} ,
     // forum: [ {type: mongoose.Schema.ObjectId, ref : "Forum"} ]
-    game: {type: mongoose.Schema.ObjectId, ref : 'Game'}
+    game: {type: mongoose.Schema.ObjectId, ref : 'Game'},
+    comment: [{ type: mongoose.Schema.ObjectId, ref : "Comment" }],
+    like: [{ type: mongoose.Schema.ObjectId, ref : "Like" }]
 }, {timestamps: true})
 
 module.exports.Post = mongoose.model("Post", PostSchema);
