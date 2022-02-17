@@ -4,7 +4,8 @@ import axios from 'axios';
 import styles from "./Games.module.css";
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faServer, faList12, faClipboardList} from '@fortawesome/free-solid-svg-icons';
+import { faServer, faList12, faClipboardList, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
+import Dropdown from "./Dropdown";
 
 
 const Games = (props) => {
@@ -15,11 +16,21 @@ const Games = (props) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [currentPagination, setPagination] = useState('multiple');
     const [postsPerPage,setPostsPerPage] = useState(10);
+    const [sortOptionValue, setSortOptionValue] = useState("Sort Randomize");
+    const [genre, setGenre] = useState();
+    const [studio, setStudio] = useState();
+
+
 
     const { id } = useParams();
 
     // Search result
     const [foundGames, setFoundGames] = useState(games);
+
+    const [isOpen, setIsOpen] = useState(false);
+    const togglePopup = () => {
+        setIsOpen(!isOpen);
+    }
 
     useEffect(() => {
         axios.get("http://localhost:8000/games")
@@ -40,6 +51,7 @@ const Games = (props) => {
 
 
     useEffect( () =>{
+        console.log(currentPagination)
         if(currentPagination === 'multiple'){
             setPostsPerPage(10);
         }else {
@@ -53,6 +65,7 @@ const Games = (props) => {
         console.log(category)
         const keyword = e.target.value;
         console.log(keyword);
+
         if (keyword !== '') {
             const results = games.filter((game) => {
                 // Case sensitivity
@@ -84,30 +97,6 @@ const Games = (props) => {
         <div className={styles.games_container}>
             <div className={styles.gameBody}>
                 <div className={styles.games_side_nav}>
-                    <ul>
-                        <br/><br/>
-                            <h5><FontAwesomeIcon className={styles.fontAwsome} icon={faClipboardList}/> Filter Search</h5>
-                        <center>
-                            <br/><br/><select className={styles.customSelect} onChange={(e) => {setCategory(e.target.value);}}>
-                            <option value="title">Default Search</option>
-                            <option value="genre">Advance Search</option>
-                        </select>
-
-                            <br/><br/><select className={styles.customSelect} onChange={(e) => {setPagination(e.target.value);}}>
-                            <option> Pagination</option>
-                            <option value="single">Single</option>
-                            <option value="multiple">Multiple</option>
-                        </select>
-
-                            <br/><br/><select className={styles.customSelect} onChange={(e) => {setCategory(e.target.value);}}>
-                                <option> Category</option>
-                                <option value="title">Title</option>
-                                <option value="genre">Genre</option>
-                                <option value="studio">Studio</option>
-                            </select>
-                        </center>
-                    </ul>
-
                     <br/><br/><br/><br/><ul>
                         <h5><FontAwesomeIcon className={styles.fontAwsome} icon={faServer}/> My Game Server</h5>
                         {gameFavorites ? gameFavorites.map((games, idx) => {
@@ -132,11 +121,16 @@ const Games = (props) => {
                             <input className={styles.search_bar}
                                 type="text"
                                 onChange={filter}
-                                placeholder="Search for a game"
-                            />
-                            <input type="submit" value="Search" />
+                                   placeholder="Search for a game"/>
+                            <FontAwesomeIcon className={styles.search_bar_icon} icon={faMagnifyingGlass}/>
+                            <input type={'button'} onClick={togglePopup} className={styles.advanceSearchBttn} value="Advanced Search" />
                         </div>
                     </div>
+
+                    <div className={styles.dropDownComp}>
+                        {isOpen && <Dropdown games={games} handleClose={togglePopup} setPagination={setPagination}/>}
+                    </div>
+
                     <div className={styles.display_games}>
                         {currentPosts ? currentPosts.map((games, idx) => {
                             return (
