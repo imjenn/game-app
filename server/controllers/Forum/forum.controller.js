@@ -1,6 +1,6 @@
-const { Forum } = require('../models/forum.model');
-const { Game } = require('../models/game.model');
-const { Post } = require('../models/post.model');
+const { Forum } = require('../../models/Forum/forum.model');
+const { Game } = require('../../models/game.model');
+const { Post } = require('../../models/Forum/post.model');
 
 module.exports = {
 

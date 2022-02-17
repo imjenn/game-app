@@ -26,8 +26,8 @@ require('./config/mongoose.config')(db);
 // Routes
 require('./routes/game.routes')(app);
 require('./routes/user.routes')(app);
-require('./routes/forum.routes')(app);
-require('./routes/post.routes')(app);
+require('./routes/Forum/forum.routes')(app);
+require('./routes/Forum/post.routes')(app);
 require('./routes/chat.routes')(app);
 require('./routes/article.routes')(app);
 require('./Sockets/socketIO')(io);
