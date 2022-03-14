@@ -26,29 +26,13 @@ require('./config/mongoose.config')(db);
 // Routes
 require('./routes/game.routes')(app);
 require('./routes/user.routes')(app);
-require('./routes/forum.routes')(app);
-require('./routes/post.routes')(app);
+require('./routes/Forum/forum.routes')(app);
+require('./routes/Forum/post.routes')(app);
 require('./routes/chat.routes')(app);
+require('./routes/article.routes')(app);
 require('./Sockets/socketIO')(io);
-require('./webscraper/games');
-
-// const webScraper = async () => {
-//     const html = await axios.get('https://www.pcgamer.com/news');
-//     const $ = await cheerio.load(html.data);
-//     let data = [];
-//     $('div.listingResult').each((i, elem) => {
-//         data.push({
-//             link: $(elem).find('a.article-link').attr('href'),
-//             image: $(elem).find('img.lazy-image-van').attr('data-original-mos'),
-//             title: $(elem).find('h3.article-name').text(),
-//             author: $(elem).find('p.byline').text().replace(/\n/g, ' ').replace(/\s\s+/g, ' ').trim(),
-            
-//         })
-//     });
-//     console.log(data);
-// }
-
-// webScraper();
+require('./webscraper/articles');
+require('./webscraper/nodecron');
 
 server.listen(port, () => {
     console.log(`Listening on port: ${port} :)`);

@@ -1,16 +1,22 @@
 .games_container {
     display: flex;
-    justify-content: space-around;
+    gap: 30px;
     width: 80%;
     margin: 0 auto;
-    border-top: 1px solid grey;
 }
 
-.games_side_nav {
+.gameBody{
+    display: inline-flex;
+    gap: 100px;
+}
+
+.gameBody .games_side_nav{
     border-right: 1px solid grey;
     border-left: 1px solid grey;
     width: 25%;
 }
+
+
 
 .games_section {
     display: flex;
@@ -30,20 +36,33 @@
 }
 
 .games_search {
-    display: flex;
-    align-items: center;
-    width: 40%;
+    display: inline-flex;
 }
 
-/* .search_bar {
-    width: 40%;
-} */
+.search_bar{
+    width: 34vh !important;
+}
 
-input[type="submit"] {
+.advanceSearchBttn{
     color: #eee;
     border: none;
     background-color: #8d52ff;
-    padding: 2%;
+    padding: 5px 3% 3%;
+    margin-top: 6px;
+    margin-left: 5px;
+    border-radius: 2px;
+    height: 33px;
+    width: 20vh;
+}
+
+.search_bar {
+    position: relative;
+}
+
+.search_bar_icon {
+    position: absolute;
+    margin-left: 31vh;
+    margin-top: 13px;
 }
 
 .display_games {
@@ -51,7 +70,6 @@ input[type="submit"] {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    /* width: 80%; */
     margin: 0 auto;
     border-right: 1px solid grey;
 }
@@ -87,5 +105,44 @@ input[type="submit"] {
 .game_title {
     font-size: 18pt;
     padding: 10% 0;
+}
+
+h5{
+    color: #6e3ad3;
+    font-weight: bold;
+}
+
+.gameServerTitle{
+    font-size: 14px;
+    display: block;
+    cursor: pointer;
+}
+
+.paginationListNumber{
+    margin: auto;
+    width: 30%;
+    padding: 10px;
+}
+
+.fontAwsome{
+    color: grey;
+    font-size: 20px;
+}
+
+.customSelect{
+    width: 200px;
+    height: 34px;
+    border-radius:2px;
+    border:none;
+    background-color: #6e3ad3;
+    padding: 10px 30px 5px 10px;
+    color: white;
+    font-size: 12px;
+}
+
+.dropDownComp{
+    margin-left: 250px;
+    border-right: 1px solid grey;
+    box-shadow: 0 -10px 25px rgba(125, 125, 125, 0.43);
 }
 

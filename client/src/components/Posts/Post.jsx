@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
+import { Editor } from '@tinymce/tinymce-react';
+import styles from "./Post.module.css";
+
+
 
 const Post = (props) => {
 
@@ -13,6 +17,10 @@ const Post = (props) => {
     const user = JSON.parse(localStorage.getItem("User"));
     console.log(user);
 
+    function handleChange(content, editor){
+        setBody(content);
+    }
+
     const newPost = {
         title: title,
         body: body,
@@ -22,6 +30,7 @@ const Post = (props) => {
 
     const createPost = (e) => {
         e.preventDefault();
+        console.log("hel[",typeof body);
         axios.post('http://localhost:8000/post/new', newPost, { withCredentials: true })
             .then(res => history.push(`/forum/${id}`))
             .catch(err => {
@@ -37,15 +46,21 @@ const Post = (props) => {
     }
 
     return (
-        <div>
-            <h1>Create a new post</h1>
-            {errors ? errors.map((err, idx) => <p key={idx}>{err}</p> ) : null}
+        <div className={styles.textBox}>
             <form onSubmit={createPost}>
+                {errors ? errors.map((err, idx) => <p key={idx}>{err}</p> ) : null}
                 <p>
                     <input type="text" name="title" placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
                 </p>
-                <textarea name="body" id="body" cols="30" rows="10" placeholder="Text" onChange={(e) => setBody(e.target.value)}></textarea>
-                <input type="submit" value="Create Post" />
+                <Editor apiKey='zz8m28t3rsp7vogxgs1401rukv3z94g9vgnk2dga1b8x1c39' cloudChannel='dev' init={{
+                    plugins: 'lists code emoticons importcss',
+                    height: 400,
+                    width: 800,
+                    toolbar: "formatselect | fontselect | bold italic strikethrough forecolor backcolor formatpainter | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | link insertfile image | removeformat | code | addcomment | checklist | casechange",
+                }}
+                         onEditorChange={handleChange}/>
+                <br />
+                <input type="submit" value="Submit" />
             </form>
         </div>
     )
