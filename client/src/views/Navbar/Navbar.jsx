@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import logo from '../images/logo.png'
-import styles from './Navbar.module.css';
+import logo from '../../assets/images/logo.png'
+import'./Navbar.css';
 import axios from "axios";
 import { useEffect } from "react";
 
@@ -42,43 +42,30 @@ const Navbar = () => {
 
     return (
         <div>
-            <div className={styles.navbar_container_1}>
+            <div className="nav-container-1">
                 <Link to="/">
                     <img src={logo} alt="Player 1 Logo" width="300" height="55" />
                 </Link>
-                <ul className={styles.navlinks_1}>
+                <ul>
                     <li>
-                        <Link className={styles.nav_links}>
-                            ABOUT
-                        </Link>
+                        <Link>ABOUT</Link>
                     </li>
                     <li>
-                        <Link className={styles.nav_links} to="/games">
-                            GAMES
-                        </Link>
+                        <Link to="/games">GAMES</Link>
                     </li>
                     <li>
-                        <Link to="/news" className={styles.nav_links}>
-                            NEWS
-                        </Link>
+                        <Link to="/news">NEWS</Link>
                     </li>
                 </ul>
-                <div id="navlinks" className={styles.navlinks_2}>
-                    <Link to="/register" className={styles.register_btn}>
-                        SIGN UP
-                    </Link>
-                    <Link to="/login" className={styles.login_btn}>
-                        LOG IN
-                    </Link>
+                <div id="navlinks" className="nav-links-1">
+                    <Link to="/register" className="register-btn">SIGN UP</Link>
+                    <Link to="/login" className="login-btn">LOG IN</Link>
                 </div>
-
-                <div id="navlinks2" className={styles.navlinks_2}>
-                    <Link onClick={logout} className={styles.register_btn}>
-                        LOGOUT
-                    </Link>
+                <div id="navlinks2" className="nav-links-2">
+                    <Link onClick={logout} className="logout-btn">LOGOUT</Link>
                 </div>
             </div>
-            <div className={styles.navbar_container_2}>
+            <div className="nav-container-2">
                 <p>New updates coming soon! Follow us on social media and stay tuned!</p>
             </div>
         </div>
