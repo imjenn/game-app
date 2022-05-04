@@ -7,9 +7,8 @@ import thresh from '../../assets/images/thresh.jpg';
 
 
 const Home = () => {
-
     return (
-        <div>
+        <>
             <div>
                 <div className="home-container-header">
                     <h1>WELCOME, PLAYER ONE</h1>
@@ -75,7 +74,7 @@ const Home = () => {
                 </div>
                 <img src={phone} alt="Phone logo" />
             </div>
-        </div>
+        </>
     )
 }
 

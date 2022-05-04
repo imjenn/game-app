@@ -120,29 +120,34 @@
 .card:first-child {
     background-image: url("https://www.gamespot.com/a/uploads/scale_medium/536/5360430/3064592-square%20league%20of%20legends%20box%20art.jpg");
     background-size: contain;
+    border: none;
 }
 
 .card:nth-child(2) {
     background-image: url("https://i.pinimg.com/originals/8e/e1/e8/8ee1e854341721e1290e35844ab084aa.jpg");
     background-size: contain;
+    border: none;
 }
 
 .card:nth-child(3) {
     background-image: url("https://wallpaperaccess.com/full/3542858.png");
     background-size: cover;
-    background-position: -120px 5px;
+    background-position: -120px 0px;
+    border: none;
 }
 
 .card:nth-child(4) {
     background-image: url("https://gamingintel.com/wp-content/uploads/2021/05/COD_warzone_main.jpg");
     background-size: cover;
     background-position: -100px;
+    border: none;
 }
 
 .card:nth-child(5) {
     background-image: url("https://images4.alphacoders.com/823/thumb-1920-82368.jpg");
     background-size: cover;
     background-position: -70px;
+    border: none;
 }
 
 .card:not(:first-child) {

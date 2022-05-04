@@ -1,18 +1,16 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 import './GameNews.css';
+import Card from '../../containers/Card/Card';
+import { useState, useEffect } from 'react';
+import useHttp from '../../hooks/use-http';
+
 
 const GameNews = () => {
     const [articles, setArticles] = useState([]);
+    const { data } = useHttp('articles', '')
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/articles`)
-            .then(res => {
-                console.log(res.data);
-                setArticles(res.data);
-            })
-            .catch(err => console.log(err));
-    }, []);
+        if (data !== null) setArticles(data);
+    }, [data]);
 
     return (
         <div className="news-container">
@@ -23,13 +21,13 @@ const GameNews = () => {
                             return (
                                 <a href={article.link} key={index} className="article-card">
                                     <img src={article.image} alt="" />
-                                    <div>
+                                    <Card>
                                         <span>
                                             <h3>{article.title}</h3>
                                             <p>{article.author}</p>   
                                         </span>
                                         <p>{article.description}</p>
-                                    </div>
+                                    </Card>
                                 </a>
                             )
                         }) 
