@@ -1,12 +1,12 @@
-.news_container {
+.news-container {
     width: 100%;
 }
 
-.news_body {
+.news-body {
     flex-wrap: wrap;
 }
 
-.article_card {
+.article-card {
     display: flex;
     /* width: 70vh; */
     width: clamp(50%, 70vw, 400px);
@@ -17,20 +17,20 @@
     padding: 50px 0;
 }
 
-.article_card:nth-of-type(1) {
+.article-card:nth-of-type(1) {
     border-top: 1px solid grey;
 }
 
-.article_card {
+.article-card {
     border-bottom: 1px solid grey;
 }
 
-.article_card img {
+.article-card img {
     width: 380px;
     height: 230px;
 }
 
-.article_card_text {
+.article-card div {
     color: #eee;
 }
 

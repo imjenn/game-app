@@ -1,12 +1,13 @@
-import styles from './Footer.module.css';
+import './Footer.css';
 
 const Footer = () => {
+    
     return (
         <div>
             <footer>
                 <h4>STAY CONNECTED</h4>
-                <p className={styles.footer_copyright}>&copy; PLAYER 1 ALL RIGHTS RESERVED</p>
-                <ul className={styles.stay_connected_icons}>
+                <p className="footer-copyright">&copy; PLAYER 1 ALL RIGHTS RESERVED</p>
+                <ul className="stay-connected-icons">
                     <li>
                         <a href="https://www.instagram.com" title="Instagram">
                             <i className="fa fa-instagram" aria-hidden="true"></i>
@@ -33,30 +34,30 @@ const Footer = () => {
                         </a>
                     </li>
                 </ul>
-                <ul className={styles.footer_links}>
+                <ul className="footer-links">
                     <li>
                         <a href="#">ABOUT</a>
                     </li>
                     <li>
-                        <p className={styles.triangle}>&#9653;</p>
+                        <p className="triangle">&#9653;</p>
                     </li>
                     <li>
                         <a href="#">SUPPORT</a>
                     </li>
                     <li>
-                        <p className={styles.circle}>&#9711;</p>
+                        <p className="circle">&#9711;</p>
                     </li>
                     <li>
                         <a href="/privacy">PRIVACY POLICY</a>
                     </li>
                     <li>
-                        <p className={styles.x}>&#x2715;</p>
+                        <p className="x">&#x2715;</p>
                     </li>
                     <li>
                         <a href="#contact-section">CONTACT US</a>
                     </li>
                     <li>
-                       <p className={styles.square}>&#9634;</p> 
+                       <p className="square">&#9634;</p> 
                     </li>
                     
                 </ul>

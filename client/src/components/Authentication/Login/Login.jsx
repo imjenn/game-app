@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import styles from './Registration.module.css';
-import jinx from '../images/jinx-cropped.png';
+import '../styles/LoginReg.css';
+import jinx from '../../../assets/images/jinx-cropped.png';
 
 
 const Login = () => {
@@ -54,22 +54,36 @@ const Login = () => {
     }
 
     return (
-        <div className={styles.login_container}>
-            <img className={styles.jinx_login} src={jinx} alt="Cutout of Jinx" />
-            <div className={styles.register}>
-                <h1 className={styles.reg_header}>LOGIN</h1>
+        <div className="login-reg-container">
+            <img src={jinx} alt="Cutout of Jinx" />
+            <div className="login-reg-form">
+                <h1>LOGIN</h1>
                 <form onSubmit={loginSubmit}>
                     <div>
                         <label>Email: </label>
-                        <input type="text" name="email" onChange={loginChangeHandler} placeholder="Email"/>
+                        <input 
+                            type="text" 
+                            name="email" 
+                            onChange={loginChangeHandler} 
+                            placeholder="Email"
+                        />
                     </div>
                     <div>
                         <label>Password: </label>
-                        <input type="password" id="password" name="password" 
-                            onChange={loginChangeHandler} placeholder="Password"/>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            onChange={loginChangeHandler} 
+                            placeholder="Password"
+                        />
                         <i onClick={showPassword} className="fa fa-eye" aria-hidden="true"></i> 
                     </div>
-                    <input className={styles.reg_btn} type="submit" value="LOG IN" />
+                    <input 
+                        className="login-reg-button" 
+                        type="submit" 
+                        value="LOG IN" 
+                    />
                     <p>Don't have an account? <a href="/register">Sign Up</a></p>
                 </form>
             </div>

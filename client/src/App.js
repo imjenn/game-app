@@ -1,21 +1,21 @@
 import './App.css';
-import React from 'react';
-import Home from './components/HomePage/Home';
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
-import Registration from './components/Forms/Registration';
-import Login from './components/Forms/Login';
-import Games from './components/Games/Games';
-import ShowGame from './components/Games/ShowGame';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
+import Chat from "./components/Chat/Chat";
+import ChatCom from "./components/Chat/ChatCom";
+import Footer from './views/Footer/Footer/Footer';
+import Forum from "./components/Forums/Forum";
+import Games from './components/Games/Games';
+import GameNews from "./components/News/GameNews";
+import Home from './views/Home/Home';
+import Login from './components/Authentication/Login/Login';
+import Navbar from './views/Navbar/Navbar';
 import Profile from "./components/UserProfile/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Chat from "./components/Chat/Chat";
-import Forum from "./components/Forums/Forum";
-import PrivacyPolicy from './components/Footer/PrivacyPolicy';
+import PrivacyPolicy from './views/Footer/PrivacyPolicy/PrivacyPolicy';
 import Post from './components/Posts/Post';
-import ChatCom from "./components/Chat/ChatCom";
-import GameNews from "./components/News/GameNews";
+import Registration from './components/Authentication/Registration/Registration';
+import ShowGame from './components/Games/ShowGame';
 
 function App() {
   return (

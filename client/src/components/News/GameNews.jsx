@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import styles from './GameNews.module.css';
+import './GameNews.css';
 
 const GameNews = () => {
     const [articles, setArticles] = useState([]);
@@ -15,15 +15,15 @@ const GameNews = () => {
     }, []);
 
     return (
-        <div className={styles.news_container}>
-            <div className={styles.news_body}>
+        <div className="news-container">
+            <div className="news-body">
                 {
                     articles ?
                         articles.map((article, index) => {
                             return (
-                                <a href={article.link} key={index} className={styles.article_card}>
+                                <a href={article.link} key={index} className="article-card">
                                     <img src={article.image} alt="" />
-                                    <div className={styles.article_card_text}>
+                                    <div>
                                         <span>
                                             <h3>{article.title}</h3>
                                             <p>{article.author}</p>   
